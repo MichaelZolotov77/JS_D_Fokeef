@@ -1,20 +1,5 @@
-const myNumber = 10
+console.log('hello' / 2)//NaN
 
-console.log(typeof myNumber)//number
+const name = 'world'
 
-let myNumber2
-
-console.log(typeof myNumber2)//undefined
-
-let myNumber3 = null
-
-console.log(typeof myNumber3)//object
-
-let myString = 'Mic'
-
-console.log(typeof myString)//string
-
-let isTrue = true
-
-console.log(typeof isTrue)//boolean
-
+console.log(`Hello ${name}`)//Hello world
