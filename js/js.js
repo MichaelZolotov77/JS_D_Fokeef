@@ -1,21 +1,17 @@
-//сравнения
+x = '1'
 
-console.log('2' > 1)//true, строка преобразуется в число
+console.log(typeof x)//string
 
-console.log('01' == 1)//true
+x = Number(x)
 
-console.log('Я' > 'А')//true, строки сравниваются посимвольно
+console.log(typeof x)//number
 
-console.log('а' > 'Я')//true, строчные буквы имеют больший приоретет
+x = ''
 
-console.log(true > false)//true
+x = Boolean(x)
 
-console.log('Hello10' > 5)//false, 'Hello10' конвертируется в NaN
+console.log(x)//false
 
-console.log(undefined == 0)//false, undefined конвертируется в NaN, NaN всегда выдает false
+x = '100'
 
-console.log(undefined == null)//true, конвертации нет
-
-console.log(undefined === null)//false, плюс сравнение типов, типы разные
-
-console.log('10' === 10)//false
+console.log(typeof +x)//number - унарный плюс преобразует строку в число
