@@ -1,17 +1,6 @@
-x = '1'
+const firstName = prompt('Напишите первое имя'),
+secondName = prompt('Напишите второе имя')
 
-console.log(typeof x)//string
+const randomNumber = (Math.floor(Math.random() * 100))
 
-x = Number(x)
-
-console.log(typeof x)//number
-
-x = ''
-
-x = Boolean(x)
-
-console.log(x)//false
-
-x = '100'
-
-console.log(typeof +x)//number - унарный плюс преобразует строку в число
+alert(`Результат совместимости имен ${firstName} и ${secondName} равен ${randomNumber}`)
