@@ -1,6 +1,16 @@
-const firstName = prompt('Напишите первое имя'),
-secondName = prompt('Напишите второе имя')
+'use strict'
 
-const randomNumber = (Math.floor(Math.random() * 100))
+//Function declaration
+function calc(a, b, c) {
+    return a + b - c
+}
+const result = calc(10, 4, 2)
 
-alert(`Результат совместимости имен ${firstName} и ${secondName} равен ${randomNumber}`)
+console.log(result)
+
+//Function expression(Функциональное выражение)
+let result2 = function (a, b, c) {
+    return a + b - c
+}
+
+console.log(result2(10, 6, 5))
