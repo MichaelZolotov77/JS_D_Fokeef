@@ -1,16 +1,16 @@
 'use strict'
 
-//Function declaration
-function calc(a, b, c) {
-    return a + b - c
-}
-const result = calc(10, 4, 2)
+let a
+let b
 
-console.log(result)
-
-//Function expression(Функциональное выражение)
-let result2 = function (a, b, c) {
-    return a + b - c
+function myFn(){
+    let b
+    a = true//так не делать!
+    b = 5
+    console.log(b)//5
 }
 
-console.log(result2(10, 6, 5))
+myFn()
+
+console.log(a)//true
+console.log(b)//undefined
