@@ -1,16 +1,21 @@
 'use strict'
 
-let a
-let b
-
-function myFn(){
-    let b
-    a = true//так не делать!
-    b = 5
-    console.log(b)//5
+function ask(question, yes, no) {
+    if(confirm(question)) {
+        yes()
+    }else {
+        no()
+    }
 }
 
-myFn()
+function showOk(){
+    alert('Спасибо за согласие')
+}
 
-console.log(a)//true
-console.log(b)//undefined
+function showCancel(){
+    alert('Вы отменили выполнение')
+}
+
+ask('Вы согласны?', showOk, showCancel)
+
+ask('Вы согласны?', function(){alert('Спасибо за согласие')}, function(){ alert('Вы отменили выполнение')})
