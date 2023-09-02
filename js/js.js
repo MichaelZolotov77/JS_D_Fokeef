@@ -3,13 +3,15 @@
 const firstName = 'John'
 const lastName = 'Lennon'
 
+function calcAge() {
+    return 2023 - user.birthYear
+}
+
 const user = {
     firstName,
     lastName,
     birthYear: 1940,
-    calcAge: function() {
-        return 2023 - user.birthYear
-    }
+    calcAge
 }
 
 console.log(user.calcAge())
