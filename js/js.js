@@ -1,21 +1,53 @@
 'use strict'
 
-function ask(question, yes, no) {
-    if (confirm(question)) {
-        yes()
-    } else {
-        no()
+/*
+ОПИСАНИЕ ЗАДАНИЯ:
+
+Вам нужно вычислить победителя среди двух команд.
+Представим 2 комманды по плаванию - "crazyKats" и "funnyDucks"
+
+Каждая из комманд показала 3 итоговых результата, в трех заплывах. Например crazyKats показали три резултата (30, 60, 43).
+
+Одна из комманд побеждает только в том случае, если среднее количесто очков по итогам трех результатов, минимум в 2 раза больше чем у соперника. Иначе ничья
+
+ЗАДАЧА:
+
+    1. Создайте стрелочную функцию которая будет считать среднее значение, 3-х результатов комманды. Расчитывается по формуле:
+    "(res1 + res2 + res3) / 3"
+
+    2. Используйте созданную функцию чтобы получить средний результат 2-х комманд.
+    
+    3. Создайте функцию с двумя параметрами - которые будут принимать аргументы из результата среднего значения очков комманд. В этой функции создайте вариацию условий, которые помогут определить победителя с помощью if/ else if и вывести сообщение с результатом в консоль.
+
+ДАННЫЕ ДЛЯ ЗАДАЧИ:
+
+    Первый вариант: "crazyKats"- 44, 23, 71  "funnyDucks" 65, 54, 49
+    Второй вариант: "crazyKats"- 85, 54, 41  "funnyDucks" 23, 34, 27
+
+
+*/
+
+const calcAverage = (res1, res2, res3) => (res1 + res2 + res3) / 3
+
+let scoreKats = calcAverage(44, 23, 71)
+let funnyDucks = calcAverage(65, 54, 49)
+
+function checkWinner(avgCats, avgDucks) {
+    if(avgCats >= avgDucks * 2){
+        console.log(`CrazyCats победили с результатом ${avgCats} против FunnyDucks с результатом ${avgDucks}`)
+    }else if (avgDucks >= avgCats * 2){
+        console.log(`FunnyDucks победили с результатом ${avgDucks} против CrazyCats с результатом ${avgCats}`)
+    }else{
+        console.log('У нас ничья')
     }
 }
 
-// function showOk(){
-//     alert('Спасибо за согласие')
-// }
+checkWinner(scoreKats, funnyDucks)
 
-// function showCancel(){
-//     alert('Вы отменили выполнение')
-// }
+//Data 2
 
-// ask('Вы согласны?', showOk, showCancel)
+scoreKats = calcAverage(85, 54, 41)
+funnyDucks = calcAverage(23, 34, 27)
 
-ask('Вы согласны?', () => alert('Спасибо за согласие'), () => alert('Вы отменили выполнение'))
+checkWinner(scoreKats, funnyDucks)
+
