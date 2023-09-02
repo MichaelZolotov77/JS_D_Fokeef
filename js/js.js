@@ -1,22 +1,14 @@
 'use strict'
 
+const firstName = 'John'
+const lastName = 'Lennon'
+
 const user = {
-    name: 'John',
-    age: 30,
-    placeOfBirth: {
-        country: 'Russia',
-        city: 'Kazan'
-    }
+    firstName,//firstName: firstName
+    lastName,
+    placeOfBirth: 'Liverpul'
 }
 
 console.log(user)
 
-user.placeOfBirth.country = 'USA'
-console.log(user)
-
-user.placeOfBirth['dateOfBirth'] = 1992
-console.log(user)
-
-delete user['placeOfBirth'].city
-console.log(user)
 
