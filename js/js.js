@@ -4,11 +4,14 @@ const firstName = 'John'
 const lastName = 'Lennon'
 
 const user = {
-    firstName,//firstName: firstName
+    firstName,
     lastName,
-    placeOfBirth: 'Liverpul'
+    birthYear: 1940,
+    calcAge: function() {
+        return 2023 - user.birthYear
+    }
 }
 
-console.log(user)
+console.log(user.calcAge())
 
 
