@@ -3,19 +3,26 @@
 const firstName = 'John'
 const lastName = 'Lennon'
 
-// function calcAge() {
-//     return 2023 - user.birthYear
-// }
+function calcAge() {
+    return 2023 - this.birthYear
+}
 
-const user = {
+const userFirst = {
     firstName,
     lastName,
     birthYear: 1940,
-    calcAge() {
-        return 2023 - user.birthYear
-    }
+    calcAge
 }
 
-console.log(user.calcAge())
+const userSecond = {
+    firstName,
+    lastName,
+    birthYear: 1980,
+    calcAge
+}
+
+
+console.log(userFirst.calcAge())
+console.log(userSecond.calcAge())
 
 
