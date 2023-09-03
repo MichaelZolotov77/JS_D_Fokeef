@@ -1,35 +1,17 @@
 'use strict'
 
-const obj = {
-    name: 'John',
-    age: 30,
-}
+function fibonachi(length) {
+    let arr = [0, 1]
 
-const obj2 = Object.assign({}, obj)
+    if (length < 1) return 'Число должно быть больше нуля'
+    if (length == 1) return [0]
+    if (length == 2) return arr
 
-obj2.age = 60
-
-console.log(obj)
-console.log(obj2)
-
-const obj3 = {...obj}//оператор разделения объекта на свойства
-obj3.name = 'Mic'
-
-console.log(obj)
-console.log(obj3)
-
-const obj4 = {
-    name: 'John',
-    age: 30,
-    someObj: {
-        city: 'Moscow'
+    for (let i = 3; i <= length; i++) {
+        let nextNum = arr.at(-1) + arr.at(-2)
+        arr.push(nextNum)
     }
+    return arr
 }
 
-//конвертация объекта в формат JSON и обратно
-const obj5 = JSON.parse(JSON.stringify(obj4))
-
-obj5.someObj.city = 'New York'
-
-console.log(obj4)
-console.log(obj5)
+console.log(fibonachi(2))
