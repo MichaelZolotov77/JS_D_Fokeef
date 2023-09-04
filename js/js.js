@@ -1,18 +1,9 @@
 'use strict';
 
-let header = document.querySelector('.header');
+let navItems = document.querySelectorAll('li');
 
-console.log(header.firstChild);
+let arr = [1, 2, 3, 4, 5];
 
-let navList = document.querySelector('.nav__list');
+console.log(navItems); //Prototype : NodeList
 
-console.log(navList.childNodes);
-
-let className = document.getElementsByClassName('nav__item');
-
-console.log(className);
-
-let tagName = document.getElementsByTagName('ul');
-
-let child = document.querySelector('h2');
-console.log(child.childNodes);
+console.log(arr); //Prototype : Array
