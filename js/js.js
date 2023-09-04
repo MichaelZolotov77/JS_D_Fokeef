@@ -1,12 +1,18 @@
 'use strict';
 
-//получение элементов
-console.log(document.querySelector('h1'));
-console.log(document.querySelector('.header'));
-console.log(document.querySelector('ul'));
-console.log(document.querySelector('li'));
-console.log(document.querySelectorAll('.nav__item'));
+let header = document.querySelector('.header');
 
-let header = document.querySelector('h1');
+console.log(header.firstChild);
 
-console.log(header);
+let navList = document.querySelector('.nav__list');
+
+console.log(navList.childNodes);
+
+let className = document.getElementsByClassName('nav__item');
+
+console.log(className);
+
+let tagName = document.getElementsByTagName('ul');
+
+let child = document.querySelector('h2');
+console.log(child.childNodes);
