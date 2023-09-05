@@ -1,15 +1,33 @@
 'use strict';
 
-let navItems = document.querySelectorAll('li');
+let arr = ['hello', 2, true, 4];
 
-let arr = [1, 2, 3, 4, 5];
+for (let value of arr) {
+  console.log(value); //получаем значения
+}
 
-console.log(navItems); //Prototype : NodeList
+let obj = {
+  name: 'John',
+  lastName: 'Travolta',
+  age: 30,
+};
 
-console.log(arr); //Prototype : Array
+for (let key in obj) {
+  console.log(key); //получаем ключи
+}
 
-let arr2 = Array.from(navItems); //превращение в обычный массив
+for (let key in obj) {
+  console.log(obj[key]); //получаем значения
+}
 
-arr2.pop(); //работает
+let arr2 = document.querySelectorAll('li');
 
 console.log(arr2);
+
+for (let key in arr2) {
+  console.log(arr2[key]); //такой метод перебора для псевдомассивов не подходит
+}
+
+for (let value of arr2) {
+  console.log(value); //получаем значения псевдомассива
+}
