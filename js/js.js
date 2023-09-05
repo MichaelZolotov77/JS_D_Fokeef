@@ -2,13 +2,12 @@
 
 let elem = document.querySelector('h1');
 
-console.log(elem.innerHTML);
-
 let oldData = elem.innerHTML;
 
-elem.innerHTML = `<p>${oldData}</p><p>Привет всем! Это новый текст</p>`;
+elem.outerHTML = `<p>Привет всем! Это новый текст</p>`;
 
-console.log(elem.innerHTML);
+console.log(elem.firstChild); //комментарий
 
-//выводит просто текст
-//elem.textContent = `<p>${oldData}</p><p>Привет всем! Это новый текст</p>`;
+elem.firstChild.data = 'новый комментарий';
+
+console.dir(elem);
