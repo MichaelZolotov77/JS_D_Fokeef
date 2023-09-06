@@ -1,8 +1,8 @@
 'use strict';
 
 let header = document.querySelector('h1');
-let secondHeader = document.createElement('h2');
 
-secondHeader.innerHTML = 'Заголовок второго уровня';
-
-header.insertAdjacentHTML('afterbegin', '<p>Some text</p>');
+header.insertAdjacentHTML('afterbegin', '<p>Afterbegin</p>');
+header.insertAdjacentHTML('beforebegin', '<p>Beforebegin</p>');
+header.insertAdjacentHTML('beforeend', '<p>Beforeend</p>');
+header.insertAdjacentHTML('afterend', '<p>Afterend</p>');
