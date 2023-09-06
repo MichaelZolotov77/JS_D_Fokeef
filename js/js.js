@@ -1,13 +1,11 @@
 'use strict';
 
-let elem = document.querySelector('h1');
+let header = document.querySelector('h1');
+let secondHeader = document.createElement('h2');
+let thirdHeader = document.createElement('h3');
 
-let oldData = elem.innerHTML;
-
-elem.outerHTML = `<p>Привет всем! Это новый текст</p>`;
-
-console.log(elem.firstChild); //комментарий
-
-elem.firstChild.data = 'новый комментарий';
-
-console.dir(elem);
+secondHeader.innerHTML = 'Заголовок второго уровня';
+thirdHeader.innerHTML = 'Заголовок третьего уровня';
+header.before(thirdHeader);
+header.append(secondHeader);
+console.log(secondHeader);
