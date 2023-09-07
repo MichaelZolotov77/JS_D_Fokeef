@@ -1,7 +1,7 @@
 'use strict';
 
-let li = document.querySelector('li');
+let li = document.querySelectorAll('li');
 
-let styleOfLi = getComputedStyle(li, '::before');
-
-console.log(styleOfLi);
+for (let value of li) {
+  value.classList.add('newClass');
+}
