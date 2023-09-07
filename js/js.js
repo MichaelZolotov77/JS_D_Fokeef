@@ -1,11 +1,7 @@
 'use strict';
 
-let header = document.querySelector('h1');
+let li = document.querySelector('li');
 
-let styleOfHeader = getComputedStyle(header);
+let styleOfLi = getComputedStyle(li, '::before');
 
-console.log(styleOfHeader.marginBottom);
-
-parseInt(styleOfHeader.marginBottom);
-
-console.log(parseInt(styleOfHeader.marginBottom));
+console.log(styleOfLi);
