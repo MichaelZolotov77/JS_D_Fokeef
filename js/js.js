@@ -1,7 +1,5 @@
 'use strict';
 
-let li = document.querySelectorAll('li');
+let img = document.querySelector('img');
 
-for (let value of li) {
-  value.classList.add('newClass');
-}
+img.src = 'https://avatarko.ru/img/kartinka/2/zhivotnye_kot_1990.jpg';
