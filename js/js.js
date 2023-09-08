@@ -1,5 +1,10 @@
 'use strict';
 
-let img = document.querySelector('img');
+const elem = document.querySelector('.box_1');
 
-img.src = 'https://avatarko.ru/img/kartinka/2/zhivotnye_kot_1990.jpg';
+console.dir(elem);
+
+elem.addEventListener('click', function () {
+  elem.style.backgroundColor = 'red';
+  elem.nextElementSibling.after(elem);
+});
