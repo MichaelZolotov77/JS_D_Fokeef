@@ -1,57 +1,43 @@
 'use strict';
 
-let secretNumber = Math.trunc(Math.random() * 20) + 1;
-console.log(secretNumber);
-let score = 20;
-let highscore = 0;
+///////////////////////
+/* 
+ЗАДАЧА:
+Создайте функционал для открытия модальных окон.
 
-const displayMessage = function (message) {
-  document.querySelector('.message').textContent = message;
-};
 
-//нажатие на кнопку проверка
-document.querySelector('.check').addEventListener('click', function () {
-  const guess = Number(document.querySelector('.guess').value);
-  console.log(guess);
+ПОДСКАЗКА:
+1-Не забывайте про свойство classList с помощью которого можно манипулировать классами HTML элементов
+2-При добавлении класса .hidden к любому элементу, он исчезнет, при удалении этого класса, он появится
+3-Не забудьте про то, что закрыть модальное окно можно как с помощью кнопки-крестика, в верхнем правом углу модального окна, так и с помощью нажатия на любое место "Оверлей"
+*/
 
-  //если не ввели число
-  if (!guess) {
-    displayMessage('Вы не ввели число');
-    //если угадали
-  } else if (guess === secretNumber) {
-    displayMessage('Вы победили!');
-    document.querySelector('body').style.background = 'green';
-    document.querySelector('.number').textContent = guess;
-    if (score > highscore) {
-      highscore = score;
-      document.querySelector('.highscore').textContent = highscore;
-    }
+const buttons = document.querySelectorAll('.show-modal');
+const modal = document.querySelector('.modal');
+const closeModal = document.querySelector('.close-modal');
+const overlay = document.querySelector('.overlay');
 
-    //если не угадали
-  } else if (guess !== secretNumber) {
-    if (score > 1) {
-      if (guess > secretNumber) {
-        displayMessage('Число больше');
-        score--;
-        document.querySelector('.score').textContent = score;
-      } else if (guess < secretNumber) {
-        displayMessage('Число меньше');
-        score--;
-        document.querySelector('.score').textContent = score;
-      }
-    } else {
-      displayMessage('Вы проиграли');
-      document.querySelector('.score').textContent = 0;
-    }
+for (let value of buttons) {
+  value.addEventListener('click', tuggleHidden);
+}
+
+function tuggleHidden() {
+  modal.classList.toggle('hidden');
+  overlay.classList.toggle('hidden');
+}
+
+closeModal.addEventListener('click', tuggleHidden);
+
+overlay.addEventListener('click', tuggleHidden);
+
+document.addEventListener('keydown', function (event) {
+  if (event.key == 'Escape' && !modal.classList.contains('hidden')) {
+    tuggleHidden();
   }
 });
-//нажатие на кнопку снова
-document.querySelector('.again').addEventListener('click', function () {
-  score = 20;
-  secretNumber = Math.trunc(Math.random() * 20) + 1;
-  displayMessage('Начните угадывать...');
-  document.querySelector('.score').textContent = score;
-  document.querySelector('.number').textContent = '?';
-  document.querySelector('.guess').value = '';
-  document.querySelector('body').style.background = 'black';
-});
+
+// document.addEventListener('keydown', function (event) {
+//   if (event.key == 'Escape') {
+//     tuggleHidden();
+//   }
+// });
