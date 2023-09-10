@@ -1,44 +1,31 @@
 'use strict';
 
-const user = {
-  name: 'John',
-  age: 30,
-  calcAge: function () {
-    // Первый способ через создание переменной
-    // const self = this;
-    // console.log(this);
-    // function newFn() {
-    //   console.log(self);
-    // }
+const arr = [
+  'apple',
+  'orange',
+  'limon',
+  'watermelon',
+  'juse',
+  'tea',
+  'coctail',
+];
 
-    // Второй способ через стрелочную функцию
-    const newFn = () => {
-      console.log(this);
-    };
-    newFn();
-  },
-};
+let [fruitOne, fruitTwo, fruitThree] = arr;
+console.log(fruitOne);
+console.log(fruitTwo);
 
-user.calcAge();
+let a = fruitOne;
+fruitOne = fruitTwo;
+fruitTwo = a;
+console.log(fruitOne);
+console.log(fruitTwo);
 
-// function calcAge() {
-//   console.log(this);
-// }
+[fruitOne, fruitTwo] = [fruitTwo, fruitOne];
+console.log(fruitOne);
+console.log(fruitTwo);
 
-// calcAge();
+function coctailMixer([fruit1, fruit2, , , , drink]) {
+  console.log(`Вы приготовили ${fruit1} + ${fruit2} ${drink}`);
+}
 
-// const myFn = () => {
-//   console.log(this);
-// };
-
-// myFn();
-
-// document.querySelector('h1').addEventListener('click', function () {
-//   this.style.color = 'red';
-//   console.log(this);
-// });
-
-// document.querySelector('h1').addEventListener('click', () => {
-//   //this.style.color = 'red';
-//   console.log(this);
-// });
+coctailMixer(arr);
