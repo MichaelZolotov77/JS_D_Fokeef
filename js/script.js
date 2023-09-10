@@ -1,43 +1,38 @@
 'use strict';
-
-///////////////////////
-/* 
+/*
 ЗАДАЧА:
-Создайте функционал для открытия модальных окон.
+Создайте игру "Собери алфавит"
 
+ПОДСКАЗКИ:
 
-ПОДСКАЗКА:
-1-Не забывайте про свойство classList с помощью которого можно манипулировать классами HTML элементов
-2-При добавлении класса .hidden к любому элементу, он исчезнет, при удалении этого класса, он появится
-3-Не забудьте про то, что закрыть модальное окно можно как с помощью кнопки-крестика, в верхнем правом углу модального окна, так и с помощью нажатия на любое место "Оверлей"
+1-Не думайте о сокращении кода. Если будет очень много повторений однотипного кода - это нормально. Первая задача понимать логику языка, а только после оптимизировать его.
+2-Помните про методы переноса элемента из одного места в другое(before, after и т.д.)
+3-Помните про свойства, получения соседних элементов (previousElementSibling, previousElementSibling и т.д)
+
 */
 
-const buttons = document.querySelectorAll('.show-modal');
-const modal = document.querySelector('.modal');
-const closeModal = document.querySelector('.close-modal');
-const overlay = document.querySelector('.overlay');
+const elements = document.querySelectorAll('.boxes__box');
+const mountainAudio = new Audio('audio/Mountain Audio - Menu Click.mp3');
+const huge = new Audio('audio/huge.wav');
+let previousElement;
+let newLetters;
 
-for (let value of buttons) {
-  value.addEventListener('click', tuggleHidden);
+for (let elem of elements) {
+  elem.addEventListener('click', function () {
+    previousElement = elem.previousElementSibling;
+    previousElement.before(elem);
+    mountainAudio.play();
+    newLetters = document.querySelectorAll('.boxes__box');
+    console.log(newLetters);
+    if (
+      newLetters[0].classList.contains('box_a') &&
+      newLetters[1].classList.contains('box_b') &&
+      newLetters[2].classList.contains('box_c') &&
+      newLetters[3].classList.contains('box_d') &&
+      newLetters[4].classList.contains('box_e') &&
+      newLetters[5].classList.contains('box_f')
+    ) {
+      huge.play();
+    }
+  });
 }
-
-function tuggleHidden() {
-  modal.classList.toggle('hidden');
-  overlay.classList.toggle('hidden');
-}
-
-closeModal.addEventListener('click', tuggleHidden);
-
-overlay.addEventListener('click', tuggleHidden);
-
-document.addEventListener('keydown', function (event) {
-  if (event.key == 'Escape' && !modal.classList.contains('hidden')) {
-    tuggleHidden();
-  }
-});
-
-// document.addEventListener('keydown', function (event) {
-//   if (event.key == 'Escape') {
-//     tuggleHidden();
-//   }
-// });
