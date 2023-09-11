@@ -3,21 +3,23 @@
 const obj = {
   fruits: ['apple', 'orange', 'limon', 'watermelon'],
   drinks: ['juce', 'tea', 'coctail'],
+  food: {
+    soup: 'borch',
+    pasta: 'spagetti',
+  },
 };
 
-console.log(...obj.fruits);
-console.log(obj.fruits);
+let arr = [1, 2, 3, 4, 5, 6, 7];
+const [a, b, c, ...others] = arr;
+console.log(a, b, c, others);
 
-const str = 'Hello';
-console.log(...str);
-
-const newFruit = [...obj.fruits];
-
-const bigArr = [...obj.fruits, ...str, 'world', ...obj.drinks];
-console.log(bigArr);
-
-function coctailMixer(drink, ing1, ing2) {
-  console.log(`Вы выбрали ${drink} из ${ing1} и ${ing2}`);
+function calc(a, b, c, ...numbers) {
+  let sum = 0;
+  for (let value of numbers) {
+    sum += value;
+  }
+  console.log(a, b, c);
+  console.log(sum);
 }
 
-coctailMixer('tea', ...obj.fruits); //Вы выбрали tea из apple и orange
+calc(21, 3, 45, 6, 1, 2, 3);
