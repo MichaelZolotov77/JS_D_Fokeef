@@ -1,31 +1,23 @@
 'use strict';
 
-const arr = [
-  'apple',
-  'orange',
-  'limon',
-  'watermelon',
-  'juse',
-  'tea',
-  'coctail',
-];
+const obj = {
+  fruits: ['apple', 'orange', 'limon', 'watermelon'],
+  drinks: ['juce', 'tea', 'coctail'],
+};
 
-let [fruitOne, fruitTwo, fruitThree] = arr;
-console.log(fruitOne);
-console.log(fruitTwo);
+console.log(...obj.fruits);
+console.log(obj.fruits);
 
-let a = fruitOne;
-fruitOne = fruitTwo;
-fruitTwo = a;
-console.log(fruitOne);
-console.log(fruitTwo);
+const str = 'Hello';
+console.log(...str);
 
-[fruitOne, fruitTwo] = [fruitTwo, fruitOne];
-console.log(fruitOne);
-console.log(fruitTwo);
+const newFruit = [...obj.fruits];
 
-function coctailMixer([fruit1, fruit2, , , , drink]) {
-  console.log(`Вы приготовили ${fruit1} + ${fruit2} ${drink}`);
+const bigArr = [...obj.fruits, ...str, 'world', ...obj.drinks];
+console.log(bigArr);
+
+function coctailMixer(drink, ing1, ing2) {
+  console.log(`Вы выбрали ${drink} из ${ing1} и ${ing2}`);
 }
 
-coctailMixer(arr);
+coctailMixer('tea', ...obj.fruits); //Вы выбрали tea из apple и orange
