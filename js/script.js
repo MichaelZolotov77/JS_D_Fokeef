@@ -1,90 +1,60 @@
 'use strict';
-/*
-ЗАДАЧИ:
 
-1.Создайте отдельные массивы игроков каждой команды. (Переменные pleayersTeamOne и pleayersTeamTwo)
+class Card {
+  constructor(src, alt, price, oldPrice, type, descr, parent) {
+    this.src = src;
+    this.alt = alt;
+    this.price = price;
+    this.oldPrice = oldPrice;
+    this.type = type;
+    this.descr = descr;
+    this.parent = parent;
+    this.sale = Math.floor((this.price / this.oldPrice) * 100 - 100);
+  }
+  render() {
+    document.querySelector(this.parent).insertAdjacentHTML(
+      'beforeend',
+      `
+    <div class="card">
+      <img class="card__img" src="${this.src}" alt="${this.alt}" />
+      <div class="card__sale">${this.sale}%</div>
+      <div class="card__price">
+      ${this.price}р
+        <span class="card__old-Price">
+          <s>${this.oldPrice}р</s>
+        </span>
+      </div>
+      <div class="card__type">${this.type}</div>
+      <div class="card__descr">${this.descr}</div>
+    </div>
+    `
+    );
+  }
+}
 
-2. Первый игрок в каждом массиве - это вратарь, остальные игроки это просто члены команды. Для первых игроков каждой команды, создайте переменную goalKeeper, а для всех остальных fieldPlayers.
+document.querySelector('.btn').addEventListener('click', function () {
+  for (let i = 0; i < 3; i++) {
+    new Card(
+      `../img/tv-${i + 1}.png`,
+      'tv',
+      18800,
+      28500,
+      'Старая коллекция',
+      'Лучший смарт телевизор',
+      '.cards'
+    ).render();
+  }
+});
 
-3.Создайте один массив allPlayers который будет содержать всех игроков обеих команд.
+// let copyOfCard = new Card(
+//   '../img/tv-2.png',
+//   'tv',
+//   18800,
+//   28500,
+//   'Старая коллекция',
+//   'Лучший смарт телевизор',
+//   '.cards'
+// );
 
-4.Добавьте в массив allPlayers еще 3-х игроков. (Имена игроков придумайте сами)
-
-5. В объекте game есть объект odds, внутри которого три свойства: 
-team1: 1.33, 
-x: 3.25,
-team2: 6.5. 
-С помощью деструктуризации объекта, создайте 3 переменные из этого объекта. При создании переменных, 
-let team1 = 1.33,
-let x = 3.25,
-let team2 = 6.5
-поменяйте имя свойства x на draw.
-
-
-
-
-*/
-const game = {
-  team1: 'Bayern Munich',
-  team2: 'Borrussia Dortmund',
-  players: [
-    [
-      'Neuer',
-      'Pavard',
-      'Martinez',
-      'Alaba',
-      'Davies',
-      'Kimmich',
-      'Goretzka',
-      'Coman',
-      'Muller',
-      'Gnarby',
-      'Lewandowski',
-    ],
-    [
-      'Burki',
-      'Schulz',
-      'Hummels',
-      'Akanji',
-      'Hakimi',
-      'Weigl',
-      'Witsel',
-      'Hazard',
-      'Brandt',
-      'Sancho',
-      'Gotze',
-    ],
-  ],
-  odds: {
-    team1: 1.33,
-    x: 3.25,
-    team2: 6.5,
-  },
-};
-//1
-let [pleayersTeamOne, pleayersTeamTwo] = game.players;
-console.log(pleayersTeamOne);
-console.log(pleayersTeamTwo);
-
-//2
-let [goalKeeperTeamOne, ...fieldPlayersTeamOne] = pleayersTeamOne;
-console.log(goalKeeperTeamOne);
-console.log(fieldPlayersTeamOne);
-
-let [goalKeeperTeamTwo, ...fieldPlayersTeamTwo] = pleayersTeamTwo;
-console.log(goalKeeperTeamTwo);
-console.log(fieldPlayersTeamTwo);
-
-//3
-let allPlayers = [...pleayersTeamOne, ...pleayersTeamTwo];
-console.log(allPlayers);
-
-//4
-let allPlayersAdd = [...allPlayers, 'Ivanov', 'Petrov', 'Sidorov'];
-console.log(allPlayersAdd);
-
-//5
-let {
-  odds: { team1, x: draw, team2 },
-} = game;
-console.log(team1, draw, team2);
+// copyOfCard.render();
+// copyOfCard.render();
