@@ -1,28 +1,26 @@
 'use strict';
 
-const airPlane = 'TAP Air Portugal';
+const newNames = 'dima vika ivan maria dmitriy';
+const arrFromStr = newNames.split(' ');
+console.log(arrFromStr);
+const strFromArray = arrFromStr.join(' ');
+console.log(strFromArray);
 
-console.log(airPlane.toLocaleLowerCase());
-console.log(airPlane.toLocaleUpperCase());
+function capitalName(strNames) {
+  const arrNames = strNames.split(' ');
+  const newUpperNames = [];
 
-const dmitry = '  dMitrIi Hello \n ';
-console.log(dmitry.trim());
+  for (let n of arrNames) {
+    newUpperNames.push(n[0].toLocaleUpperCase() + n.slice(1));
+  }
+  console.log(newUpperNames.join(' ')); //Dima Vika Ivan Maria Dmitriy
+}
 
-const priceRub = '453p';
-const priceUsd =
-  priceRub.slice(0, priceRub.length - 1) / 72 + priceRub.replace('p', '$');
-console.log(priceUsd);
+capitalName(newNames);
 
-const hello = 'Привет свет';
-const hello2 = 'Привет свет свет свет';
-const correctStr = hello.replace('свет', 'мир');
-const correctStr2 = hello2.replace('свет', 'мир');
-const correctStr3 = hello2.replaceAll('свет', 'мир');
-console.log(correctStr); //Привет мир
-console.log(correctStr2); //Привет мир свет свет
-console.log(correctStr3); //Привет мир мир мир
+const cardNumber = 2202 + '';
+console.log(cardNumber.padStart(16, '*'));
+console.log(cardNumber.padEnd(16, '*'));
 
-const flight = 's7ADR320';
-console.log(flight.includes('7AD')); //true
-console.log(flight.startsWith('s7')); //true
-console.log(flight.endsWith('320')); //true
+const hello = 'Hello world ';
+console.log(hello.repeat(5));
