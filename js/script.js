@@ -1,25 +1,28 @@
 'use strict';
 
 const airPlane = 'TAP Air Portugal';
-const plane = 'D430';
 
-console.log(airPlane[4]); //A
-console.log(airPlane.length); //16
-console.log(airPlane.indexOf('A')); //1
-console.log(airPlane.indexOf('Air')); //4
-console.log(airPlane.lastIndexOf('A')); //4
-console.log(airPlane.indexOf('q')); //-1
+console.log(airPlane.toLocaleLowerCase());
+console.log(airPlane.toLocaleUpperCase());
 
-console.log(airPlane.slice(4)); //Air Portugal
-console.log(airPlane.slice(4, 7)); //Air
-console.log(airPlane.slice(0, airPlane.indexOf(' '))); //первое слово
-console.log(airPlane.slice(airPlane.lastIndexOf(' ') + 1)); //последнее слово
-console.log(airPlane.slice(-3)); //gal
+const dmitry = '  dMitrIi Hello \n ';
+console.log(dmitry.trim());
 
-const checkSeat = function (seat) {
-  const s = seat.slice(0, 1);
-  if (s == 'A') console.log('Место у окна');
-  else console.log('Место не у окна');
-};
+const priceRub = '453p';
+const priceUsd =
+  priceRub.slice(0, priceRub.length - 1) / 72 + priceRub.replace('p', '$');
+console.log(priceUsd);
 
-checkSeat(plane); //место не у окна
+const hello = 'Привет свет';
+const hello2 = 'Привет свет свет свет';
+const correctStr = hello.replace('свет', 'мир');
+const correctStr2 = hello2.replace('свет', 'мир');
+const correctStr3 = hello2.replaceAll('свет', 'мир');
+console.log(correctStr); //Привет мир
+console.log(correctStr2); //Привет мир свет свет
+console.log(correctStr3); //Привет мир мир мир
+
+const flight = 's7ADR320';
+console.log(flight.includes('7AD')); //true
+console.log(flight.startsWith('s7')); //true
+console.log(flight.endsWith('320')); //true
