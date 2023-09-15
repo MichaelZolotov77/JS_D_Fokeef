@@ -1,25 +1,25 @@
 'use strict';
 
-const flight = '432RTN';
-const passenger = {
-  name: 'Mic',
-  passport: 392098863,
-};
-
-function checkIn(flightNum, passId) {
-  flightNum = '111RRR';
-  passId.name = 'Mr ' + passId.name;
-  if (passId.passport == 392098863) {
-    console.log('Вы успешно прошли регистрацию');
-  } else {
-    console.log('Регистрация не удалась');
-  }
+//функция первого класса
+function oneWord(str) {
+  return str.replaceAll(' ', '').toLocaleLowerCase();
 }
 
-function newPassport(person) {
-  person.passport = Math.trunc(Math.random() * 1000000);
-  console.log(person.passport);
+console.log(oneWord('Jdlln lkdkKKkl   dlkjf'));
+
+//функция первого класса
+function upperFirstLetter(str) {
+  const [first, ...other] = str.split(' ');
+  return [first[0].toUpperCase() + first.slice(1), ...other].join(' ');
 }
 
-newPassport(passenger);
-checkIn(flight, passenger);
+console.log(upperFirstLetter('dkjlkj kjfpwi kdjf kjwk'));
+
+//функция высшего порядка
+function transformer(str, fn) {
+  console.log(`Это оригинальная строка: ${str}`);
+  console.log(`Измененная строка: ${fn(str)}`);
+}
+
+transformer('превет, я очень люблю JS', upperFirstLetter);
+transformer('превет, я очень люблю JS', oneWord);
