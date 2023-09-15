@@ -1,26 +1,36 @@
 'use strict';
 
-const newNames = 'dima vika ivan maria dmitriy';
-const arrFromStr = newNames.split(' ');
-console.log(arrFromStr);
-const strFromArray = arrFromStr.join(' ');
-console.log(strFromArray);
+/*
+ЗАДАЧИ:
 
-function capitalName(strNames) {
-  const arrNames = strNames.split(' ');
-  const newUpperNames = [];
+Создайте программу которая будет преобразовывать переменные слова в которых разделены нижним тире, в переменные которые будут записанны в camelCase нотации.
+/////////
 
-  for (let n of arrNames) {
-    newUpperNames.push(n[0].toLocaleUpperCase() + n.slice(1));
+Подсказки:
+1) Решение должно работать с переменными из 2-х слов. Не больше
+2)Чтобы получить строку введенных данных из textarea, можно получить значение свойства value, DOM элемента textarea
+3) Практика сложная, поэтому если на чем то застряли, посмотрите решение проблемы и пробуйте дальше самостоятельно.
+4)Записать результат вы можете в div с классом output, через innerText
+5)  По итогу переменные должны выглядеть так: 
+underscoreCase
+firstName
+someVariable
+calculateAge
+delayedDeparture
+
+*/
+
+document.querySelector('.btn').addEventListener('click', function () {
+  const text = document.querySelector('.text').value;
+  const rows = text.split('\n');
+  console.log(rows);
+  let output = [];
+
+  for (let row of rows) {
+    const [first, second] = row.trim().toLocaleLowerCase().split('_');
+    output.push(
+      `${first}${second.replace(second[0], second[0].toUpperCase())}`
+    );
   }
-  console.log(newUpperNames.join(' ')); //Dima Vika Ivan Maria Dmitriy
-}
-
-capitalName(newNames);
-
-const cardNumber = 2202 + '';
-console.log(cardNumber.padStart(16, '*'));
-console.log(cardNumber.padEnd(16, '*'));
-
-const hello = 'Hello world ';
-console.log(hello.repeat(5));
+  document.querySelector('.output').innerText = output.join('\n');
+});
