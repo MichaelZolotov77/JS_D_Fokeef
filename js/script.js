@@ -1,20 +1,20 @@
 'use strict';
 
-function person() {
-  console.log(this.firstName + ' ' + this.lastName);
-}
+// function person() {
+//   console.log(this.firstName + ' ' + this.lastName);
+// }
 
 const person1 = {
   firstName: 'John',
   lastName: 'Doe',
-  person: person,
+  person: function () {
+    console.log(this.firstName + ' ' + this.lastName);
+  },
 };
 
 const person2 = {
   firstName: 'Mary',
   lastName: 'Doe',
-  person: person,
 };
 
-person1.person();
-person2.person();
+person1.person.call(person2);
