@@ -1,13 +1,20 @@
 'use strict';
 
-//функция высшего порядка
-function hello(hiStr) {
-  return function (name) {
-    console.log(`${hiStr} ${name}`);
-  };
+function person() {
+  console.log(this.firstName + ' ' + this.lastName);
 }
 
-const greeter = hello('Hi');
-greeter('Mic');
+const person1 = {
+  firstName: 'John',
+  lastName: 'Doe',
+  person: person,
+};
 
-hello('Hello')('Michael');
+const person2 = {
+  firstName: 'Mary',
+  lastName: 'Doe',
+  person: person,
+};
+
+person1.person();
+person2.person();
