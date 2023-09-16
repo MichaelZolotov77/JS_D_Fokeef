@@ -1,21 +1,5 @@
 'use strict';
 
-function person(greetStr) {
-  console.log(greetStr + ' ' + this.firstName + ' ' + this.lastName);
-}
-
-const person1 = {
-  firstName: 'John',
-  lastName: 'Doe',
-};
-
-const person2 = {
-  firstName: 'Mary',
-  lastName: 'Doe',
-};
-
-person.call(person1, 'Good morning,');
-
 const s7 = {
   airLine: 's7',
   iCode: 'S7',
@@ -41,3 +25,17 @@ const turkish = {
 
 book.call(turkish, 1122, 'Ivan');
 console.log(turkish.booking);
+
+const bookTr = s7.book.bind(turkish, 1111111);
+bookTr('Vika');
+
+turkish.planes = 300;
+turkish.buyPlanes = function () {
+  console.log(this);
+  this.planes++;
+  console.log(this.planes);
+};
+
+document
+  .querySelector('.btn')
+  .addEventListener('click', turkish.buyPlanes.bind(turkish));
