@@ -83,4 +83,25 @@ function createLogIn(accs) {
   });
 }
 createLogIn(accounts);
-console.log(accounts);
+
+///////
+
+const arr = [1, -12, 22, 27, -26, -100, 9];
+const filteredArr = arr.filter(function (val) {
+  return val > 0;
+});
+console.log(filteredArr);
+console.log(
+  arr.map(function (val) {
+    return val > 0;
+  })
+);
+
+//как работает метод filter()
+const arr2 = [];
+for (let val of arr) {
+  if (val > 0) {
+    arr2.push(val);
+  }
+}
+console.log(arr2);
