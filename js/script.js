@@ -71,16 +71,19 @@ function displayMovements(movements) {
 }
 displayMovements(account1.movements);
 
-///////////////
-
-const rub = [100, 220, 340, 450];
-let usd = [];
-
-rub.forEach(function (val) {
-  usd.push((val / 80).toFixed(2));
+function createLogIn(name) {
+  const userLogIn = name
+    .toLowerCase()
+    .split(' ')
+    .map(function (val) {
+      return val[0];
+    })
+    .join('');
+  return userLogIn;
+}
+accounts.forEach(function (val) {
+  val.logIn = createLogIn(val.owner);
+  console.log(val);
 });
-console.log(usd);
 
-const usd2 = rub.map((val) => val / 80);
-console.log(rub);
-console.log(usd2);
+console.log(createLogIn('Stanislav Ivanchenko'));
