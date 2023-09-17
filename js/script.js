@@ -1,24 +1,30 @@
 'use strict';
 
-const arr1 = ['a', 'b', 'c'];
+const map = new Map([
+  ['USD', 'Dollars'],
+  ['RUB', 'Rubbles'],
+  ['EUR', 'Euro'],
+]);
 
-for (let value of arr1) {
-  console.log(value);
-}
-
-arr1.forEach(function (value) {
+map.forEach(function (value) {
   console.log(value);
 });
 
-arr1.forEach(function (value, key) {
-  console.log(`Ключ: ${key} Значение: ${value}`);
+map.forEach(function (value, key) {
+  console.log(key);
+  console.log(value);
 });
 
-//костыли, чтобы добраться до ключа массива
-for (let [key, value] of arr1.entries()) {
-  console.log(`Ключ: ${key} Значение: ${value}`);
-}
+map.forEach(function (value, key, map) {
+  console.log(key);
+  console.log(value);
+  console.log(map);
+});
 
-arr1.forEach(function (value, key, arr) {
-  console.log(`Ключ: ${key} Значение: ${value} в массиве ${arr}`);
+const set = new Set(map);
+
+set.forEach(function (value, key, set) {
+  console.log(key);
+  console.log(value);
+  console.log(set);
 });
