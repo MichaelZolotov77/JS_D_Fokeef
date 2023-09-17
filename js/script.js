@@ -1,16 +1,24 @@
 'use strict';
 
-const arr1 = ['a', 'b', 'c', 'd', 'e'];
-const arr2 = ['f', 'g'];
+const arr1 = ['a', 'b', 'c'];
 
-console.log(arr1.slice(2, 4));
-console.log(arr1); //не изменился
+for (let value of arr1) {
+  console.log(value);
+}
 
-// arr2 = arr1.slice(0); //копия
-// arr3 = [...arr1]; //тоже копия
+arr1.forEach(function (value) {
+  console.log(value);
+});
 
-console.log(arr1.reverse());
-console.log(arr1); //revers меняет исходный массив
+arr1.forEach(function (value, key) {
+  console.log(`Ключ: ${key} Значение: ${value}`);
+});
 
-console.log(arr1.concat(arr2)); //делает копии, исходные массивы сохраняются
-// console.log([...arr1, ...arr2]);//тоже самое
+//костыли, чтобы добраться до ключа массива
+for (let [key, value] of arr1.entries()) {
+  console.log(`Ключ: ${key} Значение: ${value}`);
+}
+
+arr1.forEach(function (value, key, arr) {
+  console.log(`Ключ: ${key} Значение: ${value} в массиве ${arr}`);
+});
