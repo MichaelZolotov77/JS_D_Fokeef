@@ -70,3 +70,17 @@ function displayMovements(movements) {
   });
 }
 displayMovements(account1.movements);
+
+///////////////
+
+const rub = [100, 220, 340, 450];
+let usd = [];
+
+rub.forEach(function (val) {
+  usd.push((val / 80).toFixed(2));
+});
+console.log(usd);
+
+const usd2 = rub.map((val) => val / 80);
+console.log(rub);
+console.log(usd2);
