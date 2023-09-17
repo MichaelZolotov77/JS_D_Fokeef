@@ -71,19 +71,16 @@ function displayMovements(movements) {
 }
 displayMovements(account1.movements);
 
-function createLogIn(name) {
-  const userLogIn = name
-    .toLowerCase()
-    .split(' ')
-    .map(function (val) {
-      return val[0];
-    })
-    .join('');
-  return userLogIn;
+function createLogIn(accs) {
+  accs.forEach(function (acc) {
+    acc.logIn = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(function (val) {
+        return val[0];
+      })
+      .join('');
+  });
 }
-accounts.forEach(function (val) {
-  val.logIn = createLogIn(val.owner);
-  console.log(val);
-});
-
-console.log(createLogIn('Stanislav Ivanchenko'));
+createLogIn(accounts);
+console.log(accounts);
