@@ -63,7 +63,7 @@ function displayMovements(movements) {
             ${i + 1} ${textType}
           </div>
           <div class="movements__date">24/01/2037</div>
-          <div class="movements__value">${value}</div>
+          <div class="movements__value">${value} ₽</div>
         </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -84,18 +84,23 @@ function createLogIn(accs) {
 }
 createLogIn(accounts);
 
-///////
-
-const arr = [5, 5, 5, 5];
-
-const sum = arr.reduce(function (accum, val, key, arr) {
-  return accum + val;
-}, 100);
-console.log(sum);
-
-//работа метода reduce()
-let sum2 = 0;
-for (let val of arr) {
-  sum2 += val;
+function calcPrintBalance(movements) {
+  const balance = movements.reduce(function (acc, val) {
+    return acc + val;
+  });
+  labelBalance.textContent = `${balance} ₽`;
 }
-console.log(sum2);
+calcPrintBalance(account1.movements);
+
+//получение наибольшего числа
+const arr = [5000, 3400, -150, -790, -3210, -690, 8500, -30];
+
+const max = arr.reduce(function (acc, val) {
+  if (acc > val) {
+    return acc;
+  } else {
+    return val;
+  }
+}, arr[0]);
+
+console.log(max);
