@@ -86,22 +86,16 @@ createLogIn(accounts);
 
 ///////
 
-const arr = [1, -12, 22, 27, -26, -100, 9];
-const filteredArr = arr.filter(function (val) {
-  return val > 0;
-});
-console.log(filteredArr);
-console.log(
-  arr.map(function (val) {
-    return val > 0;
-  })
-);
+const arr = [5, 5, 5, 5];
 
-//как работает метод filter()
-const arr2 = [];
+const sum = arr.reduce(function (accum, val, key, arr) {
+  return accum + val;
+}, 100);
+console.log(sum);
+
+//работа метода reduce()
+let sum2 = 0;
 for (let val of arr) {
-  if (val > 0) {
-    arr2.push(val);
-  }
+  sum2 += val;
 }
-console.log(arr2);
+console.log(sum2);
