@@ -70,7 +70,6 @@ function displayMovements(movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 }
-displayMovements(account1.movements);
 
 // Создание логина из ФИО в объекте
 function createLogIn(accs) {
@@ -93,7 +92,6 @@ function calcPrintBalance(movements) {
   });
   labelBalance.textContent = `${balance} ₽`;
 }
-calcPrintBalance(account1.movements);
 
 // Вывод прихода, расхода и суммы в footer
 function calcDisplaySum(movements) {
@@ -110,18 +108,20 @@ function calcDisplaySum(movements) {
   labelSumInterest.textContent = `${incomes + out} ₽`;
 }
 
-calcDisplaySum(account1.movements);
-
-//////////
-
-const arr = [10, 5, -2, -5, 23, -7];
-
-const firstMinusNum = arr.find(function (num) {
-  return num < 0;
+let currentAccount;
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log('LogIn');
+  currentAccount = accounts.find(function (acc) {
+    return acc.logIn == inputLoginUsername.value;
+  });
+  console.log(currentAccount);
+  if (currentAccount && currentAccount.pin == Number(inputLoginPin.value)) {
+    containerApp.style.opacity = 100;
+    inputLoginPin.value = inputLoginUsername.value = '';
+    console.log('Pin ok');
+    displayMovements(currentAccount.movements);
+    calcPrintBalance(currentAccount.movements);
+    calcDisplaySum(currentAccount.movements);
+  }
 });
-console.log(firstMinusNum);
-
-const acc = accounts.find(function (acc) {
-  return acc.owner == 'Anna Filimonova';
-});
-console.log(acc);
