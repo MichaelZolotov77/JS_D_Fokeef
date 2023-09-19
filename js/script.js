@@ -86,11 +86,12 @@ function createLogIn(accs) {
 createLogIn(accounts);
 
 // Подсчет и вывод на страницу общего баланса
-function calcPrintBalance(movements) {
-  const balance = movements.reduce(function (acc, val) {
+function calcPrintBalance(acc) {
+  acc.balance = acc.movements.reduce(function (acc, val) {
     return acc + val;
   });
-  labelBalance.textContent = `${balance} ₽`;
+
+  labelBalance.textContent = `${acc.balance} ₽`;
 }
 
 // Вывод прихода, расхода и суммы в footer
@@ -108,6 +109,12 @@ function calcDisplaySum(movements) {
   labelSumInterest.textContent = `${incomes + out} ₽`;
 }
 
+function updateUi(acc) {
+  displayMovements(acc.movements);
+  calcPrintBalance(acc);
+  calcDisplaySum(acc.movements);
+}
+
 let currentAccount;
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
@@ -120,8 +127,26 @@ btnLogin.addEventListener('click', function (e) {
     containerApp.style.opacity = 100;
     inputLoginPin.value = inputLoginUsername.value = '';
     console.log('Pin ok');
-    displayMovements(currentAccount.movements);
-    calcPrintBalance(currentAccount.movements);
-    calcDisplaySum(currentAccount.movements);
+    updateUi(currentAccount);
+  }
+});
+
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const reciveAcc = accounts.find(function (acc) {
+    return acc.logIn === inputTransferTo.value;
+  });
+  const amount = Number(inputTransferAmount.value);
+  console.log(amount, reciveAcc);
+  if (
+    reciveAcc &&
+    amount > 0 &&
+    currentAccount.balance >= amount &&
+    reciveAcc.logIn !== currentAccount.logIn
+  ) {
+    currentAccount.movements.push(-amount);
+    reciveAcc.movements.push(amount);
+    updateUi(currentAccount);
+    inputTransferTo.value = inputTransferAmount.value = '';
   }
 });
