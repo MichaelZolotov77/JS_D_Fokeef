@@ -150,3 +150,10 @@ btnTransfer.addEventListener('click', function (e) {
     inputTransferTo.value = inputTransferAmount.value = '';
   }
 });
+
+const index = accounts.findIndex(function (acc) {
+  return acc.logIn === 'df';
+});
+
+console.log(accounts.indexOf(account2));
+console.log(index);
