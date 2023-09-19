@@ -52,6 +52,7 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+// Вывод на страницу всех приходов и расходов
 function displayMovements(movements) {
   containerMovements.innerHTML = '';
   movements.forEach(function (value, i) {
@@ -71,6 +72,7 @@ function displayMovements(movements) {
 }
 displayMovements(account1.movements);
 
+// Создание логина из ФИО в объекте
 function createLogIn(accs) {
   accs.forEach(function (acc) {
     acc.logIn = acc.owner
@@ -84,6 +86,7 @@ function createLogIn(accs) {
 }
 createLogIn(accounts);
 
+// Подсчет и вывод на страницу общего баланса
 function calcPrintBalance(movements) {
   const balance = movements.reduce(function (acc, val) {
     return acc + val;
@@ -92,15 +95,19 @@ function calcPrintBalance(movements) {
 }
 calcPrintBalance(account1.movements);
 
-//получение наибольшего числа
-const arr = [5000, 3400, -150, -790, -3210, -690, 8500, -30];
+// Вывод прихода, расхода и суммы в footer
+function calcDisplaySum(movements) {
+  const incomes = movements
+    .filter((mov) => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes} ₽`;
 
-const max = arr.reduce(function (acc, val) {
-  if (acc > val) {
-    return acc;
-  } else {
-    return val;
-  }
-}, arr[0]);
+  const out = movements
+    .filter((mov) => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
 
-console.log(max);
+  labelSumOut.textContent = `${Math.abs(out)} ₽`;
+  labelSumInterest.textContent = `${incomes + out} ₽`;
+}
+
+calcDisplaySum(account1.movements);
