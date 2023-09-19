@@ -151,9 +151,19 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
-const index = accounts.findIndex(function (acc) {
-  return acc.logIn === 'df';
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (
+    inputCloseUsername.value === currentAccount.logIn &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(function (acc) {
+      return acc.logIn === currentAccount.logIn;
+    });
+    console.log(index);
+    accounts.splice(index, 1);
+    containerApp.style.opacity = 0;
+    console.log(accounts);
+  }
+  inputCloseUsername.value = inputClosePin.value = '';
 });
-
-console.log(accounts.indexOf(account2));
-console.log(index);
