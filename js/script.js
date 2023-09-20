@@ -168,18 +168,12 @@ btnClose.addEventListener('click', function (e) {
   inputCloseUsername.value = inputClosePin.value = '';
 });
 
-const arr = [1, 2, 3, 4];
-
-//хотя бы один элемент должен быть меньше нуля
-const someResult = arr.some(function (val) {
-  return val < 0;
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if (amount > 0) {
+    currentAccount.movements.push(amount);
+    updateUi(currentAccount);
+  }
+  inputLoanAmount.value = '';
 });
-
-console.log(someResult);
-
-//каждый элемент должен быть больше нуля
-const everyResult = arr.every(function (val) {
-  return val > 0;
-});
-
-console.log(everyResult);
