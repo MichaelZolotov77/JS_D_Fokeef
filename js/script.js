@@ -53,9 +53,11 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 // Вывод на страницу всех приходов и расходов
-function displayMovements(movements) {
+function displayMovements(movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (value, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (value, i) {
     const type = value > 0 ? 'deposit' : 'withdrawal';
     const textType = value > 0 ? 'зачисление' : 'снятие';
     const html = `
@@ -178,25 +180,51 @@ btnLoan.addEventListener('click', function (e) {
   inputLoanAmount.value = '';
 });
 
-const arr = [[1, [2, 3]], 4, [5, 6, 7]];
-console.log(arr.flat(2));
+// const arr = [[1, [2, 3]], 4, [5, 6, 7]];
+// console.log(arr.flat(2));
 
-const accMov = accounts.map(function (acc) {
-  return acc.movements;
-});
-console.log(accMov);
+// Считаем общий баланс всех аккаунтов
+// const accMov = accounts.map(function (acc) {
+//   return acc.movements;
+// });
+// console.log(accMov);
 
-const allMov = accMov.flat();
-console.log(allMov);
+// const allMov = accMov.flat();
+// console.log(allMov);
 
-const allBalance = allMov.reduce(function (acc, mov) {
-  return acc + mov;
-}, 0);
-console.log(allBalance);
+// const allBalance = allMov.reduce(function (acc, mov) {
+//   return acc + mov;
+// }, 0);
+// console.log(allBalance);
 
 const overalBalance = accounts
   .map((acc) => acc.movements)
   .flat()
   .reduce((acc, mov) => acc + mov, 0);
 
-console.log(overalBalance);
+// console.log(overalBalance);
+
+////////
+
+// const arr = ['E', 'b', 'a', 'n', 'k', 'o'];
+// console.log(arr.sort());
+// console.log(arr);
+// console.log(account1.movements);
+// console.log(
+//   account1.movements.sort(function (a, b) {
+//     if (a > b) {
+//       return 1;
+//     }
+//     if (a < b) {
+//       return -1;
+//     }
+//   })
+// );
+// console.log(account1.movements.sort((a, b) => a - b));
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
