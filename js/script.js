@@ -180,23 +180,6 @@ btnLoan.addEventListener('click', function (e) {
   inputLoanAmount.value = '';
 });
 
-// const arr = [[1, [2, 3]], 4, [5, 6, 7]];
-// console.log(arr.flat(2));
-
-// Считаем общий баланс всех аккаунтов
-// const accMov = accounts.map(function (acc) {
-//   return acc.movements;
-// });
-// console.log(accMov);
-
-// const allMov = accMov.flat();
-// console.log(allMov);
-
-// const allBalance = allMov.reduce(function (acc, mov) {
-//   return acc + mov;
-// }, 0);
-// console.log(allBalance);
-
 const overalBalance = accounts
   .map((acc) => acc.movements)
   .flat()
@@ -204,27 +187,27 @@ const overalBalance = accounts
 
 // console.log(overalBalance);
 
-////////
-
-// const arr = ['E', 'b', 'a', 'n', 'k', 'o'];
-// console.log(arr.sort());
-// console.log(arr);
-// console.log(account1.movements);
-// console.log(
-//   account1.movements.sort(function (a, b) {
-//     if (a > b) {
-//       return 1;
-//     }
-//     if (a < b) {
-//       return -1;
-//     }
-//   })
-// );
-// console.log(account1.movements.sort((a, b) => a - b));
-
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
+});
+
+//////
+// const arr = [1, 2, 3, 4, 5];
+// arr.fill('Hello', 2, 4);
+// console.log(arr);
+
+const str = '12345';
+console.log(
+  Array.from(str, function (val, i) {
+    return 'Число ' + val;
+  })
+);
+
+labelBalance.addEventListener('click', function () {
+  Array.from(document.querySelectorAll('.movements__value'), function (val, i) {
+    return (val.innerText = val.textContent.replace('₽', 'RUB'));
+  });
 });
