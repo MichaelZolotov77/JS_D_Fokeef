@@ -52,7 +52,7 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-// Вывод на страницу всех приходов и расходов
+// Вывод на страницу всех приходов и расходов. Сортировка транзакций
 function displayMovements(movements, sort = false) {
   containerMovements.innerHTML = '';
   const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
@@ -117,6 +117,7 @@ function updateUi(acc) {
   calcDisplaySum(acc.movements);
 }
 
+// Авторизация
 let currentAccount;
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
@@ -133,6 +134,7 @@ btnLogin.addEventListener('click', function (e) {
   }
 });
 
+// Перевод денег
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
   const reciveAcc = accounts.find(function (acc) {
@@ -153,6 +155,7 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
+// Закрыть аккаунт
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
   if (
@@ -170,6 +173,7 @@ btnClose.addEventListener('click', function (e) {
   inputCloseUsername.value = inputClosePin.value = '';
 });
 
+// Внести деньги
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
   const amount = Number(inputLoanAmount.value);
@@ -180,13 +184,13 @@ btnLoan.addEventListener('click', function (e) {
   inputLoanAmount.value = '';
 });
 
+// Посчитать сумму всех баллансов аккаунов
 const overalBalance = accounts
   .map((acc) => acc.movements)
   .flat()
   .reduce((acc, mov) => acc + mov, 0);
 
-// console.log(overalBalance);
-
+// Сортировка транзакций
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
@@ -194,18 +198,7 @@ btnSort.addEventListener('click', function (e) {
   sorted = !sorted;
 });
 
-//////
-// const arr = [1, 2, 3, 4, 5];
-// arr.fill('Hello', 2, 4);
-// console.log(arr);
-
-const str = '12345';
-console.log(
-  Array.from(str, function (val, i) {
-    return 'Число ' + val;
-  })
-);
-
+// Замена значка на транзакциях
 labelBalance.addEventListener('click', function () {
   Array.from(document.querySelectorAll('.movements__value'), function (val, i) {
     return (val.innerText = val.textContent.replace('₽', 'RUB'));
