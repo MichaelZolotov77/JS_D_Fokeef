@@ -1,26 +1,29 @@
 'use strict';
 
-console.log(Number('1234')); // Преобразование в числа
-console.log(+'1234');
-console.log(+true); //1
-console.log(+false); //0
-console.log(Number.parseInt('12px')); //12
-console.log(Number.parseInt('12.557px')); //12, не работает с дробными числами
-console.log(Number.parseFloat('12.557px')); //12.557
+const nowDate = new Date();
+console.log(nowDate); // Текущая дата
 
-console.log(Math.max(10, 5, 7)); //10
-console.log(Math.min(10, 15, 17)); //10
+const date = new Date('Dec 6 2025 17:34:50'); // Можно написать строкой
+console.log(date);
 
-// В JavaScript нет функции генерации случайных чисел в диапазоне
-// Такую функцию пишут вручную
-function calcRandom(min, max) {
-  return Math.trunc(Math.random() * (max - min) + 1) + min;
-}
+const date1 = new Date(2025, 5, 10, 17, 34, 45, 700); // Можно в виде параметров, 5 месяц июнь, счет месяцев с 0
+console.log(date1);
 
-console.log(calcRandom(10, 20));
+// Получение элементов даты
+console.log(date1.getFullYear()); //2025
+console.log(date1.getMonth()); //5
+console.log(date1.getDate()); //10
+console.log(date1.getDay()); //2 - вторник
+console.log(date1.getHours()); //17
+console.log(date1.getMinutes()); //34
+console.log(date1.getSeconds()); //45
+console.log(date1.getMilliseconds()); //700
 
-console.log(Math.round(2.5)); //3, округление до ближайшего целого
-console.log(Math.ceil(2.1)); //3, округление в большую сторону
-console.log(Math.floor(2.9)); //2, округление в меньшую сторону
-console.log(+(2.345664).toFixed(2)); //2.34 Возвращает строку!
-// Если хотим вернуть число, поставить плюс впереди числа (или Number)
+date1.setFullYear(2030);
+console.log(date1.getFullYear()); //2030
+
+console.log(date1.getTime()); //1907332485700
+
+const dateByMilliseconds = new Date(1907332485700);
+console.log(dateByMilliseconds); //Mon Jun 10 2030 17:34:45 GMT+0300 (GMT+03:00)
+console.log(dateByMilliseconds.toISOString()); //2030-06-10T14:34:45.700Z
