@@ -10,9 +10,9 @@ const account1 = {
     '2020-01-28T09:15:04.904Z',
     '2020-04-01T10:17:24.185Z',
     '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2023-09-18T17:01:17.194Z',
+    '2023-09-21T23:36:17.929Z',
+    '2023-09-22T10:51:36.790Z',
   ],
   currency: 'RUB',
   locale: 'pt-PT',
@@ -97,6 +97,25 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+function formatMovementDate(date) {
+  const calcDaysPassed = function (date1, date2) {
+    return Math.round((date1 - date2) / (1000 * 60 * 60 * 24));
+  };
+  const daysPassed = calcDaysPassed(new Date(), date);
+  console.log(daysPassed);
+
+  if (daysPassed == 0) return 'Сегодня';
+  if (daysPassed == 1) return 'Вчера';
+  if (daysPassed >= 2 && daysPassed <= 4) return `Прошло ${daysPassed} дня`;
+  if (daysPassed <= 7) return `Прошло ${daysPassed} дней`;
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const hours = `${date.getHours()}`.padStart(2, 0);
+  const minutes = `${date.getMinutes()}`.padStart(2, 0);
+  return `${day}/${month}/${year}  ${hours}:${minutes}`;
+}
+
 // Вывод на страницу всех приходов и уходов
 function displayMovements(acc, sort = false) {
   containerMovements.innerHTML = '';
@@ -109,12 +128,8 @@ function displayMovements(acc, sort = false) {
     const type = value > 0 ? 'deposit' : 'withdrawal';
     const typeMessage = value > 0 ? 'внесение' : 'снятие';
     const date = new Date(acc.movementsDates[i]);
-    const year = date.getFullYear();
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const hours = `${date.getHours()}`.padStart(2, 0);
-    const minutes = `${date.getMinutes()}`.padStart(2, 0);
-    const displayDate = `${day}/${month}/${year}  ${hours}:${minutes}`;
+
+    const displayDate = formatMovementDate(date);
     const html = `
     <div class="movements__row">
           <div class="movements__type movements__type--${type}">
@@ -284,14 +299,3 @@ labelBalance.addEventListener('click', function () {
     return (val.innerText = val.textContent.replace('₽', 'RUB'));
   });
 });
-
-//////
-const future = new Date(2025, 3, 15);
-const now = new Date(2025, 2, 10);
-
-console.log(future.getTime());
-console.log(+future); // Тот же результат
-console.log(+future - +now);
-
-const res = +future - +now;
-console.log(res / 1000 / 60 / 60 / 24); // 36 - количество дней между датами
