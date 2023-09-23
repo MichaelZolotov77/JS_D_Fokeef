@@ -310,21 +310,15 @@ labelBalance.addEventListener('click', function () {
 });
 
 ///////
+const num = 889858499;
 const local = navigator.language;
-console.log(local);
-
 const options = {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
-  weekday: 'short',
-  hour: 'numeric',
-  minute: 'numeric',
-  second: 'numeric',
-  timeZoneName: 'long',
-  hour12: false,
+  style: 'currency',
+  currency: 'RUB',
 };
 
-const now = new Date();
-const gb = Intl.DateTimeFormat(local, options).format(now);
-console.log(gb);
+const ru = Intl.NumberFormat(local, options).format(num);
+console.log(ru);
+
+const ge = Intl.NumberFormat('de-DE', options).format(num);
+console.log(ge);
