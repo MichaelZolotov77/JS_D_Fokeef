@@ -202,13 +202,22 @@ btnLogin.addEventListener('click', function (e) {
 
     inputLoginPin.value = inputLoginUsername.value = '';
 
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const date = `${now.getDate()}`.padStart(2, 0);
-    const hours = `${now.getHours()}`.padStart(2, 0);
-    const minutes = `${now.getMinutes()}`.padStart(2, 0);
-    labelDate.textContent = `${date}/${month}/${year}  ${hours}:${minutes}`;
+    //Обновление текущей даты после входа в аккаунт
+    const local = navigator.language;
+    const options = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      weekday: 'short',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZoneName: 'long',
+      hour12: false,
+    };
+    labelDate.textContent = Intl.DateTimeFormat(local, options).format(
+      new Date()
+    );
 
     console.log('Pin ok');
     updateUi(currentAccount);
@@ -299,3 +308,23 @@ labelBalance.addEventListener('click', function () {
     return (val.innerText = val.textContent.replace('₽', 'RUB'));
   });
 });
+
+///////
+const local = navigator.language;
+console.log(local);
+
+const options = {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  weekday: 'short',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric',
+  timeZoneName: 'long',
+  hour12: false,
+};
+
+const now = new Date();
+const gb = Intl.DateTimeFormat(local, options).format(now);
+console.log(gb);
