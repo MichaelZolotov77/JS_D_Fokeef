@@ -217,6 +217,7 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movements.push(-amount);
     reciveAcc.movements.push(amount);
     currentAccount.movementsDates.push(new Date().toISOString());
+    reciveAcc.movementsDates.push(new Date().toISOString());
     updateUi(currentAccount);
     inputTransferTo.value = inputTransferAmount.value = '';
   }
@@ -283,3 +284,14 @@ labelBalance.addEventListener('click', function () {
     return (val.innerText = val.textContent.replace('₽', 'RUB'));
   });
 });
+
+//////
+const future = new Date(2025, 3, 15);
+const now = new Date(2025, 2, 10);
+
+console.log(future.getTime());
+console.log(+future); // Тот же результат
+console.log(+future - +now);
+
+const res = +future - +now;
+console.log(res / 1000 / 60 / 60 / 24); // 36 - количество дней между датами
