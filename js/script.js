@@ -187,11 +187,31 @@ function updateUi(acc) {
   calcDisplaySum(acc.movements);
 }
 
+//Timeout & Interval
+function startLogOut() {
+  let time = 600;
+
+  function tick() {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const seconds = String(time % 60).padStart(2, 0);
+    labelTimer.textContent = `${min}:${seconds}`;
+
+    if (time == 0) {
+      clearInterval(timer);
+      containerApp.style.opacity = 0;
+    }
+    time--;
+  }
+  tick();
+  const timer = setInterval(tick, 1000);
+  return timer;
+}
+
 //Кнопка входа в аккаунт
 let currentAccount;
+let timer;
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
-  console.log('Login');
   currentAccount = accounts.find(function (acc) {
     return acc.logIn === inputLoginUsername.value;
   });
@@ -217,8 +237,10 @@ btnLogin.addEventListener('click', function (e) {
     labelDate.textContent = Intl.DateTimeFormat(local, options).format(
       new Date()
     );
-
-    console.log('Pin ok');
+    if (timer) {
+      clearInterval(timer);
+    }
+    timer = startLogOut();
     updateUi(currentAccount);
   }
 });
@@ -241,6 +263,11 @@ btnTransfer.addEventListener('click', function (e) {
     reciveAcc.movements.push(amount);
     currentAccount.movementsDates.push(new Date().toISOString());
     reciveAcc.movementsDates.push(new Date().toISOString());
+
+    // Обновление таймера при переводе
+    clearInterval(timer);
+    timer = startLogOut();
+
     updateUi(currentAccount);
     inputTransferTo.value = inputTransferAmount.value = '';
   }
@@ -271,6 +298,11 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0) {
     currentAccount.movements.push(amount);
     currentAccount.movementsDates.push(new Date().toISOString());
+
+    // Обновление таймера при внесении средств
+    clearInterval(timer);
+    timer = startLogOut();
+
     updateUi(currentAccount);
   }
   inputLoanAmount.value = '';
@@ -309,7 +341,7 @@ labelBalance.addEventListener('click', function () {
 });
 
 ///////
-setTimeout(
+const timer1 = setTimeout(
   function (world1, world2) {
     console.log(`${world1} ${world2}`);
   },
@@ -318,6 +350,11 @@ setTimeout(
   'world'
 );
 
-setInterval(function () {
+const timer2 = setInterval(function () {
   console.log('Hi');
 }, 1000);
+
+if (true) {
+  clearTimeout(timer1);
+  clearInterval(timer2);
+}
