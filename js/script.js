@@ -10,9 +10,9 @@ const account1 = {
     '2020-01-28T09:15:04.904Z',
     '2020-04-01T10:17:24.185Z',
     '2020-05-08T14:11:59.604Z',
-    '2023-09-18T17:01:17.194Z',
-    '2023-09-21T23:36:17.929Z',
-    '2023-09-22T10:51:36.790Z',
+    '2023-09-21T17:01:17.194Z',
+    '2023-09-23T23:36:17.929Z',
+    '2023-09-24T10:51:36.790Z',
   ],
   currency: 'RUB',
   locale: 'pt-PT',
@@ -102,7 +102,6 @@ function formatMovementDate(date) {
     return Math.round((date1 - date2) / (1000 * 60 * 60 * 24));
   };
   const daysPassed = calcDaysPassed(new Date(), date);
-  console.log(daysPassed);
 
   if (daysPassed == 0) return 'Сегодня';
   if (daysPassed == 1) return 'Вчера';
@@ -310,15 +309,15 @@ labelBalance.addEventListener('click', function () {
 });
 
 ///////
-const num = 889858499;
-const local = navigator.language;
-const options = {
-  style: 'currency',
-  currency: 'RUB',
-};
+setTimeout(
+  function (world1, world2) {
+    console.log(`${world1} ${world2}`);
+  },
+  2000,
+  'Hello',
+  'world'
+);
 
-const ru = Intl.NumberFormat(local, options).format(num);
-console.log(ru);
-
-const ge = Intl.NumberFormat('de-DE', options).format(num);
-console.log(ge);
+setInterval(function () {
+  console.log('Hi');
+}, 1000);
