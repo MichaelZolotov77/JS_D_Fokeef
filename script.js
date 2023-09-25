@@ -30,8 +30,7 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-console.log(window);
-
+// Скролл до нужного места
 const btnScroll = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
@@ -44,4 +43,15 @@ btnScroll.addEventListener('click', function () {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-console.log(btnScroll.getBoundingClientRect());
+// Отмена событий
+const h1 = document.querySelector('h1');
+
+function alertH1() {
+  alert('Hello');
+}
+
+h1.addEventListener('mouseenter', alertH1);
+
+setTimeout(function () {
+  h1.removeEventListener('mouseenter', alertH1);
+}, 4000);
