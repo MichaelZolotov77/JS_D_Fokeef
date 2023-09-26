@@ -35,38 +35,33 @@ const btnScroll = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
 btnScroll.addEventListener('click', function () {
+  // Старый способ
   // window.scrollTo({
   //   left: section1.getBoundingClientRect().left + window.pageXOffset,
   //   top: section1.getBoundingClientRect().top + window.pageYOffset,
   //   behavior: 'smooth',
   // });
+
+  // Современный способ
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
+// Обработчик событий на каждом элементе
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
 
-function randomColor() {
-  return `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
-}
-console.log(randomColor());
-
-const nav = document.querySelector('.nav');
-const navLinks = document.querySelector('.nav__links');
-const link = document.querySelector('.nav__link');
-
-nav.addEventListener('click', function (e) {
-  this.style.backgroundColor = randomColor();
+// Один обработчик события на родительском элементе
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
   console.log(e.target);
-  console.log(e.currentTarget == this);
-});
-
-navLinks.addEventListener('click', function (e) {
-  this.style.backgroundColor = randomColor();
-});
-
-link.addEventListener('click', function (e) {
-  this.style.backgroundColor = randomColor();
-  //e.stopPropagation();// Запрещает всплытие событий
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
 });
