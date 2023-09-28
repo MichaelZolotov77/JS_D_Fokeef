@@ -91,7 +91,8 @@ tabContainer.addEventListener('click', function (e) {
 
 const nav = document.querySelector('.nav');
 
-function hover(e, opacity) {
+function hover(e) {
+  console.log(this);
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
     const siblings = link.closest('.nav').querySelectorAll('.nav__link');
@@ -99,17 +100,13 @@ function hover(e, opacity) {
 
     siblings.forEach((el) => {
       if (el !== link) {
-        el.style.opacity = opacity;
+        el.style.opacity = this;
       }
     });
-    logo.style.opacity = opacity;
+    logo.style.opacity = this;
   }
 }
 
-nav.addEventListener('mouseover', function (e) {
-  hover(e, 0.5);
-});
+nav.addEventListener('mouseover', hover.bind(0.5));
 
-nav.addEventListener('mouseout', function (e) {
-  hover(e, 1);
-});
+nav.addEventListener('mouseout', hover.bind(1));
