@@ -88,11 +88,10 @@ tabContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
-
+// Полупрозрачность навигационного меню
 const nav = document.querySelector('.nav');
 
 function hover(e) {
-  console.log(this);
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
     const siblings = link.closest('.nav').querySelectorAll('.nav__link');
@@ -110,3 +109,33 @@ function hover(e) {
 nav.addEventListener('mouseover', hover.bind(0.5));
 
 nav.addEventListener('mouseout', hover.bind(1));
+
+// Появление меню после прокрутки
+
+// Старый способ, который перегружает систему событиями скролла
+const coord = section1.getBoundingClientRect();
+// console.log(coord);
+
+// window.addEventListener('scroll', function () {
+//   if (this.window.scrollY > coord.top) {
+//     nav.classList.add('sticky');
+//   } else {
+//     nav.classList.remove('sticky');
+//   }
+// });
+
+function callBack(entries) {
+  console.log(entries[0]);
+  if (!entries[0].isIntersecting) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+}
+const options = {
+  threshold: 0,
+  rootMargin: '-90px',
+};
+
+const observer = new IntersectionObserver(callBack, options);
+observer.observe(document.querySelector('.header'));
