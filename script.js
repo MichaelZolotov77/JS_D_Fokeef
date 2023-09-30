@@ -113,7 +113,7 @@ nav.addEventListener('mouseout', hover.bind(1));
 // Появление меню после прокрутки
 
 // Старый способ, который перегружает систему событиями скролла
-const coord = section1.getBoundingClientRect();
+// const coord = section1.getBoundingClientRect();
 // console.log(coord);
 
 // window.addEventListener('scroll', function () {
@@ -137,14 +137,14 @@ const options = {
   rootMargin: '-90px',
 };
 
-// Всплытие секций
-
 const observer = new IntersectionObserver(callBack, options);
 observer.observe(document.querySelector('.header'));
 
+// Всплытие секций
+
 const allSections = document.querySelectorAll('.section');
 function revealSection(entries, observe) {
-  console.log(entries[0]);
+  // console.log(entries[0]);
   if (entries[0].isIntersecting) {
     entries[0].target.classList.remove('section--hidden');
     observe.unobserve(entries[0].target);
@@ -158,4 +158,25 @@ const sectionsObserver = new IntersectionObserver(revealSection, {
 allSections.forEach(function (section) {
   sectionsObserver.observe(section);
   section.classList.add('section--hidden');
+});
+
+// Ленивая подгрузка изображений
+
+const images = document.querySelectorAll('img[data-src]');
+console.log(images);
+
+function loadImg(entries, observer) {
+  console.log(entries);
+  if (!entries[0].isIntersecting) return;
+  entries[0].target.src = entries[0].target.dataset.src;
+
+  entries[0].target.addEventListener('load', function () {
+    entries[0].target.classList.remove('lazy-img');
+  });
+  observer.unobserve(entries[0].target);
+}
+const imgObserver = new IntersectionObserver(loadImg, { threshold: 0.15 });
+
+images.forEach((img) => {
+  imgObserver.observe(img);
 });
