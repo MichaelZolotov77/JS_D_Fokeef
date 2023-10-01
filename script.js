@@ -187,9 +187,23 @@ const slides = document.querySelectorAll('.slide');
 const slider = document.querySelector('.slider');
 const btnRight = document.querySelector('.slider__btn--right');
 const btnLeft = document.querySelector('.slider__btn--left');
+const dotsContainer = document.querySelector('.dots');
 
 let currSlide = 0;
 const maxSlides = slides.length;
+
+// Точки внизу слайдера
+function createDots() {
+  slides.forEach(function (_, i) {
+    dotsContainer.insertAdjacentHTML(
+      'beforeend',
+      `
+    <button class="dots__dot" data-slide="${i}"></button>
+    `
+    );
+  });
+}
+createDots();
 
 function goToSlide(slide) {
   slides.forEach(function (s, i) {
@@ -197,7 +211,17 @@ function goToSlide(slide) {
   });
 }
 
+function activateDots(slide) {
+  document.querySelectorAll('.dots__dot').forEach(function (dot) {
+    dot.classList.remove('dots__dot--active');
+  });
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add('dots__dot--active');
+}
+
 goToSlide(0);
+activateDots(0);
 
 function nextSlide() {
   if (currSlide === maxSlides - 1) {
@@ -206,6 +230,7 @@ function nextSlide() {
     currSlide++;
   }
   goToSlide(currSlide);
+  activateDots(currSlide);
 }
 
 function prevSlide() {
@@ -215,7 +240,27 @@ function prevSlide() {
     currSlide--;
   }
   goToSlide(currSlide);
+  activateDots(currSlide);
 }
 
 btnRight.addEventListener('click', nextSlide);
 btnLeft.addEventListener('click', prevSlide);
+
+// Реакция на кнопки влево и вправо
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowLeft') {
+    prevSlide();
+  }
+  if (e.key === 'ArrowRight') {
+    nextSlide();
+  }
+});
+
+dotsContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('dots__dot')) {
+    const slide = e.target.dataset.slide;
+    currSlide = +slide;
+    goToSlide(slide);
+    activateDots(slide);
+  }
+});
