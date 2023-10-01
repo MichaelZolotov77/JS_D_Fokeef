@@ -142,31 +142,31 @@ observer.observe(document.querySelector('.header'));
 
 // Всплытие секций
 
-const allSections = document.querySelectorAll('.section');
-function revealSection(entries, observe) {
-  // console.log(entries[0]);
-  if (entries[0].isIntersecting) {
-    entries[0].target.classList.remove('section--hidden');
-    observe.unobserve(entries[0].target);
-  }
-}
+// const allSections = document.querySelectorAll('.section');
+// function revealSection(entries, observe) {
+//   // console.log(entries[0]);
+//   if (entries[0].isIntersecting) {
+//     entries[0].target.classList.remove('section--hidden');
+//     observe.unobserve(entries[0].target);
+//   }
+// }
 
-const sectionsObserver = new IntersectionObserver(revealSection, {
-  threshold: 0.15,
-});
+// const sectionsObserver = new IntersectionObserver(revealSection, {
+//   threshold: 0.15,
+// });
 
-allSections.forEach(function (section) {
-  sectionsObserver.observe(section);
-  section.classList.add('section--hidden');
-});
+// allSections.forEach(function (section) {
+//   sectionsObserver.observe(section);
+//   section.classList.add('section--hidden');
+// });
 
 // Ленивая подгрузка изображений
 
 const images = document.querySelectorAll('img[data-src]');
-console.log(images);
+//console.log(images);
 
 function loadImg(entries, observer) {
-  console.log(entries);
+  //console.log(entries);
   if (!entries[0].isIntersecting) return;
   entries[0].target.src = entries[0].target.dataset.src;
 
@@ -180,3 +180,42 @@ const imgObserver = new IntersectionObserver(loadImg, { threshold: 0.15 });
 images.forEach((img) => {
   imgObserver.observe(img);
 });
+
+// Слайдер
+
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+const btnRight = document.querySelector('.slider__btn--right');
+const btnLeft = document.querySelector('.slider__btn--left');
+
+let currSlide = 0;
+const maxSlides = slides.length;
+
+function goToSlide(slide) {
+  slides.forEach(function (s, i) {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`;
+  });
+}
+
+goToSlide(0);
+
+function nextSlide() {
+  if (currSlide === maxSlides - 1) {
+    currSlide = 0;
+  } else {
+    currSlide++;
+  }
+  goToSlide(currSlide);
+}
+
+function prevSlide() {
+  if (currSlide === 0) {
+    currSlide = maxSlides - 1;
+  } else {
+    currSlide--;
+  }
+  goToSlide(currSlide);
+}
+
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', prevSlide);
