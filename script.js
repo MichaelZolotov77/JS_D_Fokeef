@@ -142,23 +142,23 @@ observer.observe(document.querySelector('.header'));
 
 // Всплытие секций
 
-// const allSections = document.querySelectorAll('.section');
-// function revealSection(entries, observe) {
-//   // console.log(entries[0]);
-//   if (entries[0].isIntersecting) {
-//     entries[0].target.classList.remove('section--hidden');
-//     observe.unobserve(entries[0].target);
-//   }
-// }
+const allSections = document.querySelectorAll('.section');
+function revealSection(entries, observe) {
+  // console.log(entries[0]);
+  if (entries[0].isIntersecting) {
+    entries[0].target.classList.remove('section--hidden');
+    observe.unobserve(entries[0].target);
+  }
+}
 
-// const sectionsObserver = new IntersectionObserver(revealSection, {
-//   threshold: 0.15,
-// });
+const sectionsObserver = new IntersectionObserver(revealSection, {
+  threshold: 0.15,
+});
 
-// allSections.forEach(function (section) {
-//   sectionsObserver.observe(section);
-//   section.classList.add('section--hidden');
-// });
+allSections.forEach(function (section) {
+  sectionsObserver.observe(section);
+  section.classList.add('section--hidden');
+});
 
 // Ленивая подгрузка изображений
 
