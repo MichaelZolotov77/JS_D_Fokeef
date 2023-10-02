@@ -1,24 +1,22 @@
 'use strict';
 
-function User(firstname, lastname, age) {
-  this.firstname = firstname;
-  this.lastname = lastname;
-  this.age = age;
+function Car(name, speed) {
+  this.name = name;
+  this.speed = speed;
 }
-User.prototype.calcage = function () {
-  return 2023 - this.age;
+Car.prototype.plusSpeed = function () {
+  console.log(`Авто ${this.name}, скорость ${(this.speed += 10)} км/ч`);
 };
 
-const ivan = new User('Ivan', 'Ivanov', 46);
-console.log(ivan);
-console.log(ivan.calcage());
-
-const arr = [];
-console.log(arr);
-
-Array.prototype.uniq = function () {
-  return [...new Set(this)];
+Car.prototype.minusSpeed = function () {
+  console.log(`Авто ${this.name}, скорость ${(this.speed -= 5)} км/ч`);
 };
 
-const arr1 = [2, 2, 2, 3, 3, 4, 4, 4];
-console.log(arr1.uniq());
+const lada = new Car('Лада', 170);
+const skoda = new Car('Skoda', 105);
+
+lada.plusSpeed();
+lada.plusSpeed();
+lada.minusSpeed();
+skoda.minusSpeed();
+skoda.minusSpeed();
