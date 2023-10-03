@@ -1,18 +1,6 @@
 'use strict';
 
-function User(firstname, lastname, age) {
-  this.firstname = firstname;
-  this.lastname = lastname;
-  this.age = age;
-}
-User.prototype.calcage = function () {
-  return 2023 - this.age;
-};
-const ivan = new User('Ivan', 'Ivanov', 46);
-console.log(ivan);
-console.log(ivan.calcage());
-
-class User1 {
+class User {
   constructor(firstname, lastname, age) {
     this.firstname = firstname;
     this.lastname = lastname;
@@ -21,7 +9,12 @@ class User1 {
   calcage() {
     return 2023 - this.age;
   }
+  get birthYear() {
+    return new Date().getFullYear() - this.age;
+  }
 }
 
-const valentina = new User1('Valentina', 'Popova', 92);
+const valentina = new User('Valentina', 'Popova', 92);
+console.log(valentina);
 console.log(valentina.calcage());
+console.log(valentina.birthYear);
