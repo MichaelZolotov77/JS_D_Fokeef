@@ -1,13 +1,18 @@
 'use strict';
 
-class Article {
-  constructor(title, date) {
-    this.title = title;
-    this.date = date;
-  }
-  static createTodays() {
-    return new this('Some article', new Date());
-  }
-}
+const newProto = {
+  calcBirth() {
+    console.log(2023 - this.age);
+  },
 
-console.log(Article.createTodays());
+  init(firstName, age) {
+    this.firstName = firstName;
+    this.age = age;
+  },
+};
+
+const ivan = Object.create(newProto);
+ivan.init('Ivan', 35);
+
+console.log(ivan);
+ivan.calcBirth();
