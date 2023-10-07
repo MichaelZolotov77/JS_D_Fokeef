@@ -14,11 +14,8 @@ class Employee {
 
 /////////////
 
+// Если не меняется конструктор, то его можно не объявлять
 class Manager extends Employee {
-  constructor(firstName, lastName, age, post, password) {
-    super(firstName, lastName, age, post);
-    this.password = password;
-  }
   sayHello() {
     console.log('Привет, я метод менеджера');
   }
