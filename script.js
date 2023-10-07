@@ -1,35 +1,53 @@
 'use strict';
 
-function Employee(firstName, lastName, age, post) {
-  this.firstName = firstName;
-  this.lastName = lastName;
-  this.age = age;
-  this.post = post;
-}
+/* 
+ЗАДАЧА:
+1.Используй функцию конструктор чтобы создать электор автомобиль(ElectroCar), который будет дочерним классом автомобиля. Помимо свойств марки(mark) и скорости(speed), у дочернего класса электро автомобиля, создайте свойство уровня заряда батареи(charge).
+2.Создайте метод зарядки электро автомобиля, у которого будет параметр (chargeTo) который при вызове этого метода, будет менять уровень заряда в свойствах электро автомобиля.
+3. Создайте метод ускорения(accelerate) который будет увеличивать скорость на 20км\ч и уменьшать уровень заряда авто на 1%. И выводить сообщение: "Tesla едет со скоростью 120км\ч, с уровнем заряда 22%"
+4.Создайте экземпляр дочернего класса и поэкспериментируйте с вызовом методов.
+*/
 
-Employee.prototype.calcBirth = function () {
-  console.log(new Date().getFullYear() - this.age);
+const Car = function (mark, speed) {
+  this.mark = mark;
+  this.speed = speed;
 };
 
-const cashier = new Employee('Ivan', 'Avdeev', 26, 'cashier');
-console.log(cashier);
-cashier.calcBirth();
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(`${this.mark} едедет со скоростью ${this.speed} км\ч`);
+};
+Car.prototype.break = function () {
+  this.speed -= 5;
+  console.log(`${this.mark} едедет со скоростью ${this.speed} км\ч`);
+};
 
 /////////////
 
-function Manager(firstName, lastName, age, post, password) {
-  Employee.call(this, firstName, lastName, age, post);
-  this.password = password;
+function ElectroCar(mark, speed, charge) {
+  Car.call(this, mark, speed);
+  this.charge = charge;
 }
 
-Manager.prototype = Object.create(Employee.prototype);
+ElectroCar.prototype = Object.create(Car.prototype);
 
-// Новый метод создается после создания прототипа
-Manager.prototype.sayHello = function () {
-  console.log('Привет, я метод менеджера');
+ElectroCar.prototype.accelerate = function () {
+  this.speed += 20;
+  this.charge--;
+  console.log(
+    `${this.mark} едедет со скоростью ${this.speed} км\ч с уровнем заряда ${this.charge}%`
+  );
 };
 
-const manager = new Manager('Irina', 'Petrova', 33, 'manager', 'pass');
-manager.calcBirth();
-console.log(manager);
-manager.sayHello();
+ElectroCar.prototype.chargeBattery = function (val) {
+  this.charge = this.charge += val;
+};
+
+const tesla = new ElectroCar('Tesla', 100, 50);
+tesla.accelerate();
+tesla.accelerate();
+
+tesla.chargeBattery(10);
+tesla.chargeBattery(10);
+
+console.log(tesla);
