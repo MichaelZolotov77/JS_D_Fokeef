@@ -1,27 +1,17 @@
 'use strict';
 
-class Employee {
-  constructor(firstName, lastName, age, post) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.age = age;
-    this.post = post;
+class Account {
+  movements = [];
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+    console.log('Вы создали аккаунт');
   }
-  calcBirth() {
-    console.log(new Date().getFullYear() - this.age);
-  }
-}
-
-/////////////
-
-// Если не меняется конструктор, то его можно не объявлять
-class Manager extends Employee {
-  sayHello() {
-    console.log('Привет, я метод менеджера');
+  sayHi() {
+    console.log('Hello world');
   }
 }
 
-const manager = new Manager('Irina', 'Petrova', 33, 'manager', 'pass');
-console.log(manager);
-manager.calcBirth();
-manager.sayHello();
+const ivan = new Account('Ivan', 'RUB', 1111);
+console.log(ivan);
