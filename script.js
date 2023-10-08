@@ -12,22 +12,21 @@ class Account {
   sayHi() {
     console.log('Hello world');
   }
-  changePin(password) {
+  #changePin(password) {
     this.#pin = password;
   }
   deposit(val) {
     this.#movements.push(val);
+    return this;
   }
   withdraw(val) {
     this.deposit(-val);
+    return this;
   }
   getMov() {
-    return this.#movements;
+    console.log(this.#movements);
   }
 }
 
 const ivan = new Account('Ivan', 'RUB', 1111);
-ivan.deposit(300);
-ivan.deposit(400);
-ivan.withdraw(100);
-console.log(ivan);
+ivan.deposit(300).deposit(200).withdraw(100).getMov();
