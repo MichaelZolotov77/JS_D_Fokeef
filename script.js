@@ -23,58 +23,77 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
-let map;
-let mapEvent;
+class App {
+  _map;
+  _mapEvent;
+  constructor() {
+    // Запуск логики приложения
+    this._getPosition();
+    // Обработчик события, который вызывает _newWorkout()
+    form.addEventListener('submit', this._newWorkout.bind(this));
+    // Обработчик события, который вызывает _toggleField()
+    inputType.addEventListener('change', this._toggleField);
+  }
+  // Запрос данных о местоположении пользователя.
+  // В случае успеха запускается _loadMap()
+  _getPosition() {
+    if (navigator.geolocation)
+      navigator.geolocation.getCurrentPosition(
+        this._loadMap.bind(this),
+        // Модальное окно в случае отказа
+        function () {
+          alert('Вы не предоставили доступ к своей локации');
+        }
+      );
+  }
+  // Загрузка карты на страницу
+  _loadMap(position) {
+    const { latitude, longitude } = position.coords;
+    const coords = [latitude, longitude];
+    console.log(this);
+    this._map = L.map('map').setView(coords, 13);
 
-if (navigator.geolocation)
-  navigator.geolocation.getCurrentPosition(
-    function (position) {
-      const { latitude, longitude } = position.coords;
-      const coords = [latitude, longitude];
-      map = L.map('map').setView(coords, 13);
-      console.log(map);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this._map);
+    //Обработчик события нажатия по карте, который запускает _showForm()
+    this._map.on('click', this._showForm.bind(this));
+  }
+  // Метод, который отобразит форму при клике по карте
+  _showForm(mapE) {
+    this._mapEvent = mapE;
+    form.classList.remove('hidden');
+    inputDistance.focus();
+  }
+  // Метод, срабатывающий при переключении типа тренировок
+  _toggleField() {
+    inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+    inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+  }
+  // Метод для установки маркера на карту
+  _newWorkout(e) {
+    e.preventDefault();
+    inputDistance.value =
+      inputDuration.value =
+      inputCadence.value =
+      inputElevation.value =
+        '';
+    const { lat, lng } = this._mapEvent.latlng;
+    L.marker([lat, lng])
+      .addTo(this._map)
+      .bindPopup(
+        L.popup({
+          maxWidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          className: 'mark-popup',
+        })
+      )
+      .setPopupContent('Тренировка')
+      .openPopup();
+  }
+}
 
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
-
-      map.on('click', function (mapE) {
-        mapEvent = mapE;
-        console.log(mapEvent);
-        form.classList.remove('hidden');
-        inputDistance.focus();
-      });
-    },
-    function () {
-      alert('Вы не предоставили доступ к своей локации');
-    }
-  );
-
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
-  inputDistance.value =
-    inputDuration.value =
-    inputCadence.value =
-    inputElevation.value =
-      '';
-  const { lat, lng } = mapEvent.latlng;
-  L.marker([lat, lng])
-    .addTo(map)
-    .bindPopup(
-      L.popup({
-        maxWidth: 250,
-        minWidth: 100,
-        autoClose: false,
-        closeOnClick: false,
-        className: 'mark-popup',
-      })
-    )
-    .setPopupContent('Тренировка')
-    .openPopup();
-});
-
-inputType.addEventListener('change', function () {
-  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
-});
+const app = new App();
