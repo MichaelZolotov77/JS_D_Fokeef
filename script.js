@@ -57,13 +57,8 @@ class Cycling extends Workout {
   }
 }
 
-const run1 = new Running([55, 39], 5.2, 24, 170);
-const cycling1 = new Cycling([55, 39], 26, 90, 520);
-
-console.log(run1);
-console.log(cycling1);
-
 class App {
+  _workouts = [];
   _map;
   _mapEvent;
   constructor() {
@@ -90,7 +85,6 @@ class App {
   _loadMap(position) {
     const { latitude, longitude } = position.coords;
     const coords = [latitude, longitude];
-    console.log(this);
     this._map = L.map('map').setView(coords, 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -114,13 +108,55 @@ class App {
   // Метод для установки маркера на карту
   _newWorkout(e) {
     e.preventDefault();
-    inputDistance.value =
-      inputDuration.value =
-      inputCadence.value =
-      inputElevation.value =
-        '';
+    const validInputs = (...inputs) =>
+      inputs.every((inp) => Number.isFinite(inp));
+    const allPositive = (...inputs) => inputs.every((inp) => inp > 0);
+    // Данные из форм
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
     const { lat, lng } = this._mapEvent.latlng;
-    L.marker([lat, lng])
+    let workout;
+
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+      if (
+        // !Number.isFinite(distance) ||
+        // !Number.isFinite(duration) ||
+        // !Number.isFinite(cadence)
+        !validInputs(distance, duration, cadence) ||
+        !allPositive(distance, duration, cadence)
+      ) {
+        return alert('Необходимо ввести целое положительное число');
+      }
+      workout = new Running([lat, lng], distance, duration, cadence);
+    }
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+      if (
+        !validInputs(distance, duration, elevation) ||
+        !allPositive(distance, duration)
+      ) {
+        return alert('Необходимо ввести целое положительное число');
+      }
+      workout = new Cycling([lat, lng], distance, duration, elevation);
+    }
+
+    this._workouts.push(workout);
+    console.log(this._workouts);
+    // Проверить что данные корректны
+
+    // Если это пробежка, создать объект пробежки
+
+    // Если это велосипед, создать объект велосипед
+
+    // Добавить объект в массив workout
+
+    // Рендер маркера тренировки на карте
+    this.renderWorkMarker(workout);
+  }
+  renderWorkMarker(workout) {
+    L.marker(workout.coords)
       .addTo(this._map)
       .bindPopup(
         L.popup({
@@ -131,9 +167,18 @@ class App {
           className: 'mark-popup',
         })
       )
-      .setPopupContent('Тренировка')
+      .setPopupContent('workout.distance')
       .openPopup();
   }
 }
+
+// Очистить поля ввода и спрятать форму
+inputDistance.value =
+  inputDuration.value =
+  inputCadence.value =
+  inputElevation.value =
+    '';
+
+// Рендер списка тренировок
 
 const app = new App();
