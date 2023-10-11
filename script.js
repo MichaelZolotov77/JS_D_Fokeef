@@ -63,10 +63,13 @@ class App {
   constructor() {
     // Запуск логики приложения
     this._getPosition();
+    // Получение данный из локального хранилища
+    this._getLocalStorage();
     // Обработчик события, который вызывает _newWorkout()
     form.addEventListener('submit', this._newWorkout.bind(this));
     // Обработчик события, который вызывает _toggleField()
     inputType.addEventListener('change', this._toggleField);
+    // Обработчик события нажатия на тренировку для перемещения к нему на карте
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
   }
 
@@ -95,6 +98,10 @@ class App {
     }).addTo(this._map);
     //Обработчик события нажатия по карте, который запускает _showForm()
     this._map.on('click', this._showForm.bind(this));
+
+    this._workouts.forEach((work) => {
+      this._renderWorkMarker(work);
+    });
   }
 
   // Метод, который отобразит форму при клике по карте
@@ -158,6 +165,8 @@ class App {
 
     // Очистить поля ввода и спрятать форму
     this._hideForm();
+
+    this._setLocalStorage();
   }
 
   _renderWorkMarker(workout) {
@@ -252,6 +261,27 @@ class App {
       animate: true,
       pan: { duration: 1 },
     });
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this._workouts));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+    console.log(data);
+
+    if (!data) return;
+
+    this._workouts = data;
+    this._workouts.forEach((work) => {
+      this._renderWorkout(work);
+    });
+  }
+
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
   }
 }
 
