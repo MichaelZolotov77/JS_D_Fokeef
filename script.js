@@ -67,6 +67,7 @@ class App {
     form.addEventListener('submit', this._newWorkout.bind(this));
     // Обработчик события, который вызывает _toggleField()
     inputType.addEventListener('change', this._toggleField);
+    containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
   }
 
   // Запрос данных о местоположении пользователя.
@@ -236,6 +237,21 @@ class App {
       `;
     }
     form.insertAdjacentHTML('afterend', html);
+  }
+
+  // Метод плавного перемещения к месту тренировки по карте
+  _moveToPopup(e) {
+    const workoutEL = e.target.closest('.workout');
+    if (!workoutEL) return;
+    console.log(workoutEL);
+    const workout = this._workouts.find(
+      (work) => work.id === workoutEL.dataset.id
+    );
+    console.log(workout);
+    this._map.setView(workout.coords, 13, {
+      animate: true,
+      pan: { duration: 1 },
+    });
   }
 }
 
