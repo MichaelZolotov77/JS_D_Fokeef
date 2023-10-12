@@ -7,6 +7,7 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
+const header = document.querySelector('.header');
 
 class Workout {
   date = new Date();
@@ -71,6 +72,8 @@ class App {
     inputType.addEventListener('change', this._toggleField);
     // Обработчик события нажатия на тренировку для перемещения к нему на карте
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+    // Сброс списка тренировок нажатием на заголовок
+    header.addEventListener('click', this.reset);
   }
 
   // Запрос данных о местоположении пользователя.
