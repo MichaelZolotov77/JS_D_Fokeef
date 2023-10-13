@@ -96,14 +96,8 @@ function renderCards(data, className = '') {
 
 function getCountryData(country) {
   const request = fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(function (response) {
-      console.log(response);
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      renderCards(data[0]);
-    });
+    .then((response) => response.json())
+    .then((data) => renderCards(data[0]));
   console.log(request);
 }
 getCountryData('russia');
