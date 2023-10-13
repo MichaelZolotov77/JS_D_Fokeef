@@ -4,17 +4,36 @@ const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
+function getCountryData(country) {
+  const request = new XMLHttpRequest();
 
-const request = new XMLHttpRequest();
-request.open('GET', 'https://meowfacts.herokuapp.com/?count=3');
-request.send();
-request.addEventListener('load', function () {
-  const data = JSON.parse(request.responseText);
-  console.log(data);
-  const [text1, text2, text3] = data.data;
-  console.log(text1);
-  console.log(text2);
-  console.log(text3);
-});
+  request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
+  request.send();
+  request.addEventListener('load', function () {
+    const [data] = JSON.parse(this.responseText);
+    console.log(data);
+    console.log(Object.entries(data.languages)[0][1]);
+    console.log(Object.entries(Object.entries(data.currencies)[0][1])[0][1]);
+    const html = `
+  <article class="country">
+          <img class="country__img" src="${data.flags.svg}" />
+          <div class="country__data">
+            <h3 class="country__name">${data.name.common}</h3>
+            <h4 class="country__region">${data.region}</h4>
+            <p class="country__row"><span>👫</span>${data.population}</p>
+            <p class="country__row"><span>🗣️</span>${
+              Object.entries(data.languages)[0][1]
+            }</p>
+            <p class="country__row"><span>💰</span>${
+              Object.entries(Object.entries(data.currencies)[0][1])[0][1]
+            }</p>
+          </div>
+        </article>
+  `;
+    countriesContainer.insertAdjacentHTML('beforeend', html);
+    countriesContainer.style.opacity = 1;
+  });
+}
 
-console.log('Hello');
+getCountryData('vietnam');
+getCountryData('russia');
