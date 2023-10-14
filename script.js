@@ -113,10 +113,7 @@ function getCountryData(country) {
   getJSON(`https://restcountries.com/v3.1/name/${country}`, 'Страна не найдена')
     .then(function (data) {
       renderCards(data[0]);
-      console.log(data[0]);
-      const neighbour = data[0].borders;
-      // const neighbour = 'lknve';
-      console.log(neighbour);
+      const neighbour = data[0].borders[0];
       if (!neighbour) {
         throw new Error('Не найдено соседей');
       }
@@ -140,5 +137,25 @@ function getCountryData(country) {
 }
 
 btn.addEventListener('click', function () {
-  getCountryData('australia');
+  getUserIP();
+});
+
+function getUserIP() {
+  fetch('https://ipapi.co/json/')
+    .then(function (d) {
+      console.log(d);
+      return d.json();
+    })
+    .then(function (d) {
+      console.log(d);
+      return getCountryData(d.country_name);
+    })
+    .catch();
+}
+
+navigator.geolocation.getCurrentPosition(function (position) {
+  console.log(position);
+  const { latitude, longitude } = position.coords;
+  console.log(latitude);
+  console.log(longitude);
 });
