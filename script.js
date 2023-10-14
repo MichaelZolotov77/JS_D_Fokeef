@@ -98,38 +98,37 @@ function renderError(message) {
 }
 
 function getCountryData(country) {
-  // Страна 1
-  const request = fetch(`https://restcountries.com/v3.1/name/${country}`);
-  console.log(request);
-
-  request
-    .then(function (response) {
-      console.log(request);
-      console.log(response);
-
+  // Обработка ошибок через внешнюю функцию
+  function getJSON(url, errorMessage = 'Что-то пошло не так') {
+    return fetch(url).then(function (response) {
       if (!response.ok) {
-        throw new Error(`Страна не найдена (${response.status})`);
+        throw new Error(`${errorMessage} (${response.status})`);
       }
       return response.json();
-    })
+    });
+  }
+
+  const request = fetch(`https://restcountries.com/v3.1/name/${country}`);
+
+  getJSON(`https://restcountries.com/v3.1/name/${country}`, 'Страна не найдена')
     .then(function (data) {
       renderCards(data[0]);
-      //const neighbour = data[0].borders[0];
-      const neighbour = 'lknve';
+      console.log(data[0]);
+      const neighbour = data[0].borders;
+      // const neighbour = 'lknve';
+      console.log(neighbour);
+      if (!neighbour) {
+        throw new Error('Не найдено соседей');
+      }
 
       // Страна сосед
-      return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`)
-        .then(function (response) {
-          if (!response.ok) {
-            throw new Error(`Страна не найдена (${response.status})`);
-          }
-
-          return response.json();
-        })
-        .then(function (data) {
-          const [res] = data;
-          renderCards(res, 'neighbour');
-        });
+      return getJSON(
+        `https://restcountries.com/v3.1/alpha/${neighbour}`,
+        'Страна не найдена'
+      ).then(function (data) {
+        const [res] = data;
+        renderCards(res, 'neighbour');
+      });
     })
     .catch(function (err) {
       console.dir(err);
@@ -141,5 +140,5 @@ function getCountryData(country) {
 }
 
 btn.addEventListener('click', function () {
-  getCountryData('usa');
+  getCountryData('australia');
 });
