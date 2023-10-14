@@ -91,7 +91,10 @@ function renderCards(data, className = '') {
       `;
   // Выводим на страницу карточку и убираем нулевую прозрачность
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
+}
+
+function renderError(message) {
+  countriesContainer.insertAdjacentText('beforeend', message);
 }
 
 function getCountryData(country) {
@@ -117,7 +120,17 @@ function getCountryData(country) {
           console.log(res);
           renderCards(res, 'neighbour');
         });
+    })
+    .catch(function (err) {
+      console.dir(err);
+      renderError(`Что-то пошло не так из-за ошибки: ${err.message}`);
+    })
+    .finally(function () {
+      countriesContainer.style.opacity = 1;
     });
   console.log(request);
 }
-getCountryData('usa');
+
+btn.addEventListener('click', function () {
+  getCountryData('usa');
+});
