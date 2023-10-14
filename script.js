@@ -1,18 +1,16 @@
 'use strict';
 
-console.log('Test start');
-
-setTimeout(function () {
-  console.log('0 sec timer');
-}, 0);
-
-Promise.resolve('Resolved promose 1').then(function (res) {
-  for (let i = 0; i < 2000000000; i++) {}
-  console.log(res);
+const position = new Promise(function (result, reject) {
+  navigator.geolocation.getCurrentPosition(
+    function (pos) {
+      result(pos);
+    },
+    function (err) {
+      reject(err);
+    }
+  );
 });
 
-Promise.resolve('Resolved promose 2').then(function (res) {
-  console.log(res);
+position.then(function (data) {
+  console.log(data);
 });
-
-console.log('Test end');
