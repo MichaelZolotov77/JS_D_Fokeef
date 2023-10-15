@@ -1,7 +1,5 @@
 'use strict';
 
-const btn = document.querySelector('.btn-country');
-
 async function getCountry(country) {
   // fetch(`https://restcountries.com/v3.1/name/${country}`)
   //   .then((response) => response.json())
@@ -11,14 +9,26 @@ async function getCountry(country) {
     if (!res.ok) {
       throw new Error('Неправильное имя');
     }
-    console.log(res);
     const data = await res.json();
-    console.log(data);
+    return `Ваша страна ${data[0].name.common}`;
   } catch (err) {
     console.log(err);
+    throw new Error('Что то не так');
   }
 }
 
-btn.addEventListener('click', function () {
-  getCountry('usaaa');
-});
+const city = getCountry('usa');
+console.log(city);
+
+getCountry('argentina')
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err));
+
+(async function () {
+  try {
+    const city = await getCountry('russia');
+    console.log(city);
+  } catch (err) {
+    console.log(err);
+  }
+})();
